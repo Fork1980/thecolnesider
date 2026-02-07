@@ -446,6 +446,20 @@ a:hover {
         margin-right: auto;
     }
 }
+/* Landing page intro width control */
+.landing-intro {
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+@media (max-width: 768px) {
+    .landing-intro {
+        max-width: 92%;
+    }
+}
+
 
 
 
