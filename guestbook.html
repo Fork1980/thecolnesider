@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest book · Paul Newland</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="site-title">PAUL NEWLAND</div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                 <li><a href="projects.html">projects</a></li>
+                <li><a href="woodwork.html">Woodwork</a></li>
+		<li><a href="wordsearch-90s.html">Word Search</a></li>
+		<li><a href="travel.html">Travel</a></li>
+		 <li><a class="active" href="guestbook.html">Guest Book</a></li>
+            </ul>
+        </nav>
+
+    </div>
+
+    <div class="colour-bar"></div>
+</header>
+
+<main class="landing">
+    <section class="landing-panel">
+
+        <h1>Why not say hello?</h1>
+        <p class="subtitle">and drop a comment in the guest book</p>
+
+        <div class="intro-box">
+            <p>
+                This site is a quiet record of projects and ideas.
+                If you’ve enjoyed something here, spotted a mistake,
+                or simply want to say hello, feel free to leave a message.
+            </p>
+
+            <p>
+                Messages are sent directly to me and aren’t published automatically.
+                That keeps things friendly, human, and spam-free.
+            </p>
+        </div>
+
+        <div class="intro-box">
+            <form action="https://formspree.io/f/xykjzkkk" method="POST">
+
+                <p>
+                    <label>
+                        Your name<br>
+                        <input type="text" name="name" required>
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        Your email (optional)<br>
+                        <input type="email" name="email">
+                    </label>
+                </p>
+
+                <p>
+                    <label>
+                        Your message<br>
+                        <textarea name="message" rows="5" required></textarea>
+                    </label>
+                </p>
+
+                <!-- Honeypot field: bots fill this, humans don’t -->
+                <input type="text" name="_gotcha" style="display:none">
+
+                <p style="text-align:center; margin-top:1.5rem;">
+                    <button type="submit">Send message</button>
+                </p>
+
+            </form>
+        </div>
+
+    </section>
+</main>
+
+</body>
+</html>
