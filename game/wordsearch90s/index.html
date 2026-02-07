@@ -13,6 +13,9 @@
 </head>
 
 <body>
+<div id="rotate-notice">
+    <p>Mr. Newland says “For your sanity; please turn your device to landscape orientation.”</p>
+</div>
 
 <header class="site-header">
     <div class="header-inner">
@@ -99,6 +102,28 @@ immersive retro experience...or don't!
 
 <!-- GAME SCRIPT -->
 <script src="game.js"></script>
+	<script>
+/* 
+   Paulie’s solution for the orientation nightmare
+   Politely asks users to rotate their device for the word search
+*/
+
+function checkOrientation() {
+    const notice = document.getElementById('rotate-notice');
+    if (!notice) return;
+
+    if (window.innerHeight > window.innerWidth) {
+        notice.style.display = 'flex';
+    } else {
+        notice.style.display = 'none';
+    }
+}
+
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
+</script>
+
 
 </body>
 </html>
+
