@@ -171,7 +171,8 @@ li.found {
    their phone to match
    ============================================ */
 
-@media (max-width: 768px) and (orientation: portrait) {
+@media (orientation: portrait) {
+ 
 
     body {
         overflow: hidden;
@@ -195,4 +196,5 @@ li.found {
     }
 
 }
+
 
