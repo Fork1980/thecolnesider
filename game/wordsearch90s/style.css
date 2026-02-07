@@ -135,4 +135,15 @@ li.found {
     }
 
 }
+@media (orientation: landscape) and (max-width: 1024px) {
+
+    .cell {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 18px;
+    }
+
+}
+
 
