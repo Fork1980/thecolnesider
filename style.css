@@ -411,3 +411,30 @@ a:hover {
         grid-template-columns: 1fr;
     }
 }
+/* =====================================================
+   Mobile fixes (navigation + text)
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    /* Stack header instead of squeezing it */
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+    }
+
+    /* Allow nav items to wrap */
+    nav ul {
+        flex-wrap: wrap;
+        gap: 0.6rem 1rem;
+    }
+
+    /* Prevent text feeling too wide on phones */
+    .intro-box p {
+        text-align: left;
+        hyphens: auto;
+    }
+
+}
+
