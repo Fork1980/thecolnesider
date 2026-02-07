@@ -1,3 +1,7 @@
+/* 
+   Base window layout (desktop + portrait)
+   */
+
 .window {
     width: 900px;
     margin: 40px auto;
@@ -18,13 +22,17 @@
     padding: 10px;
 }
 
-/* LEFT SIDE */
+/*
+   LEFT SIDE
+    */
+
 .left-panel {
     display: flex;
     gap: 10px;
 }
 
 /* INFO COLUMN */
+
 .info-panel {
     width: 200px;
     display: flex;
@@ -50,7 +58,10 @@
     line-height: 1.4;
 }
 
-/* GRID */
+/* 
+   WORDSEARCH GRID
+    */
+
 .grid {
     display: grid;
     gap: 2px;
@@ -76,13 +87,19 @@
     background: #99ff99;
 }
 
-/* RIGHT SIDE */
+/* 
+   RIGHT SIDE
+   = */
+
 .right-panel {
     width: 200px;
     margin-left: 10px;
 }
 
-/* BUTTONS */
+/* 
+   BUTTONS
+   */
+
 .window button {
     border: 2px solid #000;
     padding: 4px 10px;
@@ -91,7 +108,10 @@
     cursor: pointer;
 }
 
-/* WIN SCREEN */
+/* 
+   WIN SCREEN
+    */
+
 .win-screen {
     position: fixed;
     inset: 0;
@@ -116,34 +136,32 @@
 li.found {
     text-decoration: line-through;
 }
-/* ============================================
-   Landscape override – let the game breathe
+
+/*
+   LANDSCAPE MOBILE OVERRIDE
    Paulie’s solution for the orientation nightmare
-   ============================================ */
+   Goal: entire grid visible on screen
+    */
 
 @media (orientation: landscape) and (max-width: 1024px) {
 
+    /* Let the game use the screen */
     .window {
         width: 100vw;
         max-width: none;
         margin: 0;
-        border-width: 2px;
     }
 
     .content {
-        padding: 8px;
+        padding: 6px;
     }
 
-}
-@media (orientation: landscape) and (max-width: 1024px) {
-
+    /* Scale grid to viewport HEIGHT so it always fits */
     .cell {
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        font-size: 18px;
+        width: min(6vh, 40px);
+        height: min(6vh, 40px);
+        line-height: min(6vh, 40px);
+        font-size: min(3vh, 18px);
     }
 
 }
-
-
