@@ -436,5 +436,16 @@ a:hover {
         hyphens: auto;
     }
 
+}/* Mobile text width fix */
+@media (max-width: 768px) {
+    .content,
+    .text-container,
+    main {
+        max-width: 92%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
+
+
 
