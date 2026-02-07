@@ -1,0 +1,413 @@
+/* =====================================================
+   GLOBAL RESET & TYPOGRAPHY
+   ===================================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    background-color: #f4f1eb;   /* off white */
+    color: #222;
+    line-height: 1.65;
+}
+
+
+/* =====================================================
+   HEADER & NAVIGATION (CHARCOAL)
+   ===================================================== */
+
+.site-header {
+    background-color: #101518;
+}
+
+.header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title {
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    color: #f5f5f2;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1.2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #f5f5f2;
+}
+
+nav a.active {
+    text-decoration: underline;
+}
+
+.colour-bar {
+    height: 6px;
+    background-color: #444444;
+}
+
+
+/* =====================================================
+   LANDING PAGE LAYOUT
+   ===================================================== */
+.visually-hidden {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+main.landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.2rem 1rem 2.5rem;
+}
+
+/* Single calm column */
+main.landing > * {
+    max-width: 720px;
+    width: 100%;
+}
+
+
+/* =====================================================
+   HERO LOGO (TMBTB) 
+   ===================================================== */
+
+.hero-logo {
+ padding-top: 0.5rem;    
+max-height: 200px;              width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto 0.25rem;     
+}
+
+
+/* =====================================================
+   SECONDARY / SMALL LOGOS (IF USED)
+   ===================================================== */
+
+.page-logo-centre {
+    display: flex;
+    justify-content: center;
+    margin: 0.6rem auto 0.2rem;
+}
+
+.page-logo-centre img {
+    max-width: 75px;
+    height: auto;
+    margin: 0;
+}
+
+
+/* =====================================================
+   HEADINGS
+   ===================================================== */
+
+h1 {
+    text-align: center;
+    margin: 0.2rem 0 0.15rem;
+}
+
+.subtitle {
+    text-align: center;
+    font-style: italic;
+    margin: 0 0 0.9rem;
+}
+
+
+/* =====================================================
+   CONTENT BLOCKS
+   ===================================================== */
+
+.intro-box {
+    margin: 1.3rem auto;
+}
+
+/* Book-quality line length */
+.intro-box p {
+    max-width: 65ch;
+    margin: 0 auto 1rem;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    word-spacing: 0.03em;
+}
+
+/* Lists */
+.intro-box ul {
+    padding-left: 1.2rem;
+}
+
+.intro-box li {
+    max-width: 65ch;
+    margin: 0 auto 0.6rem;
+    text-align: justify;
+}
+
+
+/* =====================================================
+   IMAGES & FIGURES (NON-HERO)
+   ===================================================== */
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.2rem auto;
+}
+
+/* Ensure hero logo is not affected by generic img rules */
+.hero-logo {
+    margin-top: 0;
+}
+
+figure {
+    margin: 1.4rem auto;
+    text-align: center;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 0.4rem;
+    opacity: 0.8;
+}
+
+
+/* =====================================================
+   DETAILS / PROJECT SECTIONS
+   ===================================================== */
+
+details.intro-box {
+    border-top: 1px solid #ccc;
+    padding-top: 0.9rem;
+}
+
+details.intro-box > summary {
+    cursor: pointer;
+    font-size: 1.05rem;
+    padding: 0.5rem 0;
+    list-style: none;
+    position: relative;
+}
+
+details.intro-box > summary::-webkit-details-marker {
+    display: none;
+}
+
+details.intro-box > summary::after {
+    content: "▸";
+    position: absolute;
+    right: 0;
+    transition: transform 0.2s ease;
+}
+
+details[open] > summary::after {
+    transform: rotate(90deg);
+}
+
+details.intro-box > summary:hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   PROJECTS HINT
+   ===================================================== */
+
+.projects-hint {
+    font-style: italic;
+    opacity: 0.75;
+    margin: 1.4rem 0;
+    text-align: center;
+}
+
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+    color: #2f4f4f;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.nova-wrap {
+    overflow: hidden; /* clears the float */
+}
+/* =====================================================
+   Image grids
+   ===================================================== */
+/* =====================================================
+   Image grids
+   ===================================================== */
+
+.photo-grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.photo-grid-2x2 figure {
+    margin: 0;
+}
+
+/* Force all images to the same visual size */
+.photo-grid-2x2 img {
+    width: 100%;
+    aspect-ratio: 4 / 3;     /* matches your top-left image */
+    object-fit: cover;       /* crop, don’t stretch */
+    display: block;
+    border-radius: 12px;
+}
+
+.photo-grid-2x2 figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #444;
+}
+/* =====================================================
+   Image grid – 2x1
+   ===================================================== */
+
+.photo-grid-2x1 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.photo-grid-2x1 figure {
+    margin: 0;
+}
+
+/* Same visual size as your 2x2 grid */
+.photo-grid-2x1 img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+.photo-grid-2x1 figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #444;
+    text-align: center;
+}
+/* =====================================================
+   Single image with caption + paragraph
+   ===================================================== */
+
+.photo-single {
+    margin: 2rem 0;
+}
+
+.photo-single figure {
+    margin: 0;
+    overflow: hidden; /* ensures rounded corners clip */
+}
+
+.photo-single img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+}
+
+/* =====================================================
+   Single image (Raleigh Nova detail)
+   ===================================================== */
+
+.photo-single {
+    margin: 2rem auto;
+    max-width: 520px;   /* 👈 controls image size */
+}
+
+.photo-single figure {
+    margin: 0;
+    overflow: hidden;   /* ensures rounded corners clip */
+}
+
+.photo-single img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;   /* 👈 rounded edges */
+}
+
+.photo-single figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: #444;
+    text-align: center;
+}
+
+/* Paragraph under the image */
+.photo-single .photo-description {
+    max-width: 65ch;
+    margin: 1rem auto 0;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+.image-pair {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.image-pair figure {
+    margin: 0;
+    text-align: center;
+}
+
+.image-pair img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.image-pair figcaption {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.4;
+}
+
+/* Stack on small screens */
+@media (max-width: 700px) {
+    .image-pair {
+        grid-template-columns: 1fr;
+    }
+}
