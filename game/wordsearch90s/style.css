@@ -116,3 +116,23 @@
 li.found {
     text-decoration: line-through;
 }
+/* ============================================
+   Landscape override – let the game breathe
+   Paulie’s solution for the orientation nightmare
+   ============================================ */
+
+@media (orientation: landscape) and (max-width: 1024px) {
+
+    .window {
+        width: 100vw;
+        max-width: none;
+        margin: 0;
+        border-width: 2px;
+    }
+
+    .content {
+        padding: 8px;
+    }
+
+}
+
