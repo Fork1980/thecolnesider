@@ -1,5 +1,5 @@
 /* =====================================================
-   BASE LAYOUT
+   BASE WINDOW LAYOUT (DESKTOP + DEFAULT)
    ===================================================== */
 
 .window {
@@ -8,31 +8,30 @@
     background: #c0c0c0;
     border: 2px solid #000;
     font-family: Arial, sans-serif;
-    box-sizing: border-box;
 }
 
 .title-bar {
     background: #000080;
-    color: #fff;
+    color: white;
     padding: 6px 10px;
     font-weight: bold;
 }
 
 .content {
     display: flex;
-    gap: 10px;
     padding: 10px;
 }
 
 /* =====================================================
-   LEFT PANEL
+   LEFT SIDE
    ===================================================== */
 
 .left-panel {
     display: flex;
     gap: 10px;
-    flex: 1;
 }
+
+/* INFO COLUMN */
 
 .info-panel {
     width: 200px;
@@ -52,86 +51,165 @@
 }
 
 .text-box {
-    background: #fff;
+    background: #ffffff;
     border: 2px solid #000;
     padding: 8px;
     font-size: 13px;
+    line-height: 1.4;
 }
 
 /* =====================================================
-   GRID
+   WORDSEARCH GRID
    ===================================================== */
 
-:root {
-    --cell: 32px;
+/* Horizontal scroll container */
+.grid-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
 }
 
+/* Grid keeps natural width */
 .grid {
     display: grid;
     gap: 2px;
-    grid-template-columns: repeat(var(--grid-size), var(--cell));
-    justify-content: center;
+    width: max-content;
 }
 
 .cell {
-    width: var(--cell);
-    height: var(--cell);
-    line-height: var(--cell);
-    background: #fff;
+    width: 32px;
+    height: 32px;
+    background: white;
     border: 1px solid #000;
     text-align: center;
+    line-height: 32px;
     font-weight: bold;
+    cursor: pointer;
     user-select: none;
 }
 
-.cell.selected { background: #ffff99; }
-.cell.found   { background: #99ff99; }
+.cell.selected {
+    background: #ffff99;
+}
+
+.cell.found {
+    background: #99ff99;
+}
 
 /* =====================================================
-   RIGHT PANEL
+   RIGHT SIDE
    ===================================================== */
 
 .right-panel {
     width: 200px;
+    margin-left: 10px;
 }
 
 /* =====================================================
-   SMALL SCREENS — MAKE IT PLAYABLE
+   BUTTONS
    ===================================================== */
 
-@media (max-width: 900px) {
+.window button {
+    border: 2px solid #000;
+    padding: 4px 10px;
+    background: #e0e0e0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =====================================================
+   WIN SCREEN
+   ===================================================== */
+
+.win-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.win-box {
+    background: #c0c0c0;
+    border: 3px solid #000;
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+
+.hidden {
+    display: none;
+}
+
+li.found {
+    text-decoration: line-through;
+}
+
+/* =====================================================
+   LANDSCAPE MOBILE OVERRIDE
+   ===================================================== */
+
+@media (orientation: landscape) and (max-width: 1024px) {
 
     .window {
-        width: calc(100vw - 12px);
-        margin: 6px auto;
+        width: 100vw;
+        max-width: none;
+        margin: 0;
     }
 
     .content {
-        flex-direction: column;
+        padding: 6px;
     }
 
-    .left-panel {
-        flex-direction: column;
+    .cell {
+        width: min(6vh, 40px);
+        height: min(6vh, 40px);
+        line-height: min(6vh, 40px);
+        font-size: min(3vh, 18px);
+    }
+}
+
+/* =====================================================
+   MOBILE PORTRAIT ROTATION
+   Rotate GAME ONLY, keep header/nav upright
+   ===================================================== */
+
+@media (orientation: portrait) {
+
+    body {
+        overflow: hidden;
     }
 
-    .info-panel {
-        width: 100%;
-        flex-direction: row;
-        flex-wrap: wrap;
+    /* Keep site header upright */
+    header.site-header {
+        position: relative;
+        z-index: 10;
     }
 
-    .timer-box,
-    .sound-box {
-        flex: 1;
-        min-width: 140px;
+    /* Take game out of document flow */
+    .game-rotate-wrapper {
+        position: fixed;
+        top: 120px;               /* header + nav height */
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f4f1eb;
+        overflow: hidden;
+        z-index: 1;
     }
 
-    .right-panel {
-        width: 100%;
-    }
-
-    /* 🔑 shrink cells so 12x12 always fits */
-    :root {
-        --cell: clamp(18px, 6vw, 28px);
+    /* Rotate the actual game */
+    .game-rotate-wrapper .window {
+        transform: rotate(90deg);
+        transform-origin: center;
+        width: 100vh;
+        margin: 0;
     }
 }
