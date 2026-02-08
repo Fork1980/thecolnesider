@@ -61,26 +61,26 @@
 }
 
 /* =====================================================
-   WORDSEARCH GRID (SCROLL FIXED)
+   WORDSEARCH GRID (FINAL SCROLL FIX)
    ===================================================== */
 
-/* scroll container */
+/* Scroll container */
 .grid-scroll {
     flex: 1;
-    min-width: 0;                  /* CRITICAL FLEX FIX */
+    min-width: 0;                 /* critical flexbox fix */
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
-/* actual grid */
+/* Actual grid */
 .grid {
     display: grid;
     gap: 2px;
-    width: max-content;            /* allows horizontal overflow */
+    width: max-content;           /* allows horizontal overflow */
 }
 
-/* grid cells */
+/* Grid cells */
 .cell {
     width: 32px;
     height: 32px;
@@ -162,7 +162,6 @@ li.found {
     inset: 0;
     background: #f4f1eb;
     z-index: 9999;
-    display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -195,7 +194,7 @@ li.found {
 }
 
 /* =====================================================
-   MOBILE PORTRAIT ROTATION
+   MOBILE PORTRAIT ROTATION (FINAL FIX)
    ===================================================== */
 
 @media (orientation: portrait) {
@@ -209,6 +208,7 @@ li.found {
         z-index: 10;
     }
 
+    /* Rotation sandbox */
     .game-rotate-wrapper {
         position: fixed;
         top: 120px;
@@ -219,14 +219,24 @@ li.found {
         align-items: center;
         justify-content: center;
         background: #f4f1eb;
-        overflow: hidden;
+        overflow: visible;      /* IMPORTANT: do not clip rotated content */
         z-index: 1;
     }
 
+    /* Rotated game */
     .game-rotate-wrapper .window {
         transform: rotate(90deg);
         transform-origin: center;
         width: 100vh;
+        max-width: none;
         margin: 0;
+        overflow: hidden;
+    }
+
+    /* Grid scrolling inside rotated context */
+    .grid-scroll {
+        max-height: 100vh;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }
