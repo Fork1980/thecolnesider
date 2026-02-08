@@ -187,14 +187,16 @@ li.found {
         background: #000;
     }
 
-    .game-rotate-wrapper .window {
-        transform: rotate(90deg);
-        transform-origin: center;
-        width: 100vh;
-        height: 100vw;
-        margin: 0;
-    }
+  .game-rotate-wrapper .window {
+    transform: rotate(90deg) scale(0.9);
+    transform-origin: center;
+    width: 100vh;
+    height: 100vw;
+    margin: 0;
+}
+
    
+
 
 
 
