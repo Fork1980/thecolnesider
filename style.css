@@ -485,7 +485,7 @@ a:hover {
     margin: 0 0 0.75rem 0;
 }
 
-/* Units toggle */
+/* Units */
 
 .unit-toggle {
     display: flex;
@@ -509,7 +509,7 @@ a:hover {
     padding: 0 0.4em;
 }
 
-/* Label + input alignment (robust, no pseudo-elements) */
+/* Form grid */
 
 .sip-form-grid {
     display: grid;
@@ -569,6 +569,16 @@ a:hover {
     color: #555;
     line-height: 1.4;
 }
+
+/* Light humour */
+
+.sip-humour {
+    margin-top: 0.5rem;
+    font-size: 0.75em;
+    color: #666;
+    text-align: center;
+}
+
 
 
 
