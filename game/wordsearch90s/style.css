@@ -1,5 +1,5 @@
 /* =====================================================
-   BASE WINDOW LAYOUT (DESKTOP + DEFAULT)
+   BASE LAYOUT
    ===================================================== */
 
 .window {
@@ -8,35 +8,34 @@
     background: #c0c0c0;
     border: 2px solid #000;
     font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 .title-bar {
     background: #000080;
-    color: white;
+    color: #fff;
     padding: 6px 10px;
     font-weight: bold;
 }
 
 .content {
     display: flex;
+    gap: 10px;
     padding: 10px;
 }
 
 /* =====================================================
-   LEFT SIDE
+   LEFT PANEL
    ===================================================== */
 
 .left-panel {
     display: flex;
     gap: 10px;
-    align-items: flex-start;
+    flex: 1;
 }
-
-/* INFO COLUMN */
 
 .info-panel {
     width: 200px;
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -53,258 +52,86 @@
 }
 
 .text-box {
-    background: #ffffff;
+    background: #fff;
     border: 2px solid #000;
     padding: 8px;
     font-size: 13px;
-    line-height: 1.4;
 }
 
 /* =====================================================
-   WORDSEARCH GRID (FINAL SCROLL FIX)
+   GRID
    ===================================================== */
 
-/* Scroll container */
-.grid-scroll {
-    flex: 1;
-    min-width: 0;                 /* critical flexbox fix */
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
+:root {
+    --cell: 32px;
 }
 
-/* Actual grid */
 .grid {
     display: grid;
     gap: 2px;
-    width: max-content;           /* allows horizontal overflow */
+    grid-template-columns: repeat(var(--grid-size), var(--cell));
+    justify-content: center;
 }
 
-/* Grid cells */
 .cell {
-    width: 32px;
-    height: 32px;
-    background: white;
+    width: var(--cell);
+    height: var(--cell);
+    line-height: var(--cell);
+    background: #fff;
     border: 1px solid #000;
     text-align: center;
-    line-height: 32px;
     font-weight: bold;
-    cursor: pointer;
     user-select: none;
 }
 
-.cell.selected {
-    background: #ffff99;
-}
-
-.cell.found {
-    background: #99ff99;
-}
+.cell.selected { background: #ffff99; }
+.cell.found   { background: #99ff99; }
 
 /* =====================================================
-   RIGHT SIDE
+   RIGHT PANEL
    ===================================================== */
 
 .right-panel {
     width: 200px;
-    margin-left: 10px;
-    flex-shrink: 0;
 }
 
 /* =====================================================
-   BUTTONS
+   SMALL SCREENS — MAKE IT PLAYABLE
    ===================================================== */
 
-.window button {
-    border: 2px solid #000;
-    padding: 4px 10px;
-    background: #e0e0e0;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* =====================================================
-   WIN SCREEN
-   ===================================================== */
-
-.win-screen {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.win-box {
-    background: #c0c0c0;
-    border: 3px solid #000;
-    padding: 20px;
-    text-align: center;
-    width: 300px;
-}
-
-.hidden {
-    display: none;
-}
-
-li.found {
-    text-decoration: line-through;
-}
-
-/* =====================================================
-   ROTATION NOTICE
-   ===================================================== */
-
-#rotate-notice {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #f4f1eb;
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-    font-family: Georgia, serif;
-}
-
-/* =====================================================
-   LANDSCAPE MOBILE OVERRIDE
-   ===================================================== */
-
-@media (orientation: landscape) and (max-width: 1024px) {
+@media (max-width: 900px) {
 
     .window {
-        width: 100vw;
-        max-width: none;
-        margin: 0;
+        width: calc(100vw - 12px);
+        margin: 6px auto;
     }
 
     .content {
-        padding: 6px;
+        flex-direction: column;
     }
 
-    .cell {
-        width: min(6vh, 40px);
-        height: min(6vh, 40px);
-        line-height: min(6vh, 40px);
-        font-size: min(3vh, 18px);
-    }
-}
-
-/* =====================================================
-   MOBILE PORTRAIT ROTATION (FINAL FIX)
-   ===================================================== */
-
-@media (orientation: portrait) {
-
-    body {
-        overflow: hidden;
+    .left-panel {
+        flex-direction: column;
     }
 
-    header.site-header {
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Rotation sandbox */
-    .game-rotate-wrapper {
-        position: fixed;
-        top: 120px;
-        left: 0;
-        width: 100vw;
-        height: calc(100vh - 120px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #f4f1eb;
-        overflow: visible;      /* IMPORTANT: do not clip rotated content */
-        z-index: 1;
-    }
-
-    /* Rotated game */
-    .game-rotate-wrapper .window {
-        transform: rotate(90deg);
-        transform-origin: center;
-        width: 100vh;
-        max-width: none;
-        margin: 0;
-        overflow: hidden;
-    }
-
-    /* Grid scrolling inside rotated context */
-    .grid-scroll {
-        max-height: 100vh;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-}
-/* =====================================================
-   SMALL DEVICE LANDSCAPE — FIT OR SCROLL
-   ===================================================== */
-
-@media (orientation: landscape) and (max-width: 900px) {
-
-    /* Let grid area take available width */
-    .grid-scroll {
-        flex: 1;
-        min-width: 0;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    /* Try to make grid fit first */
-    .cell {
-        width: 28px;
-        height: 28px;
-        line-height: 28px;
-        font-size: 14px;
-    }
-
-    /* If still too wide, scrolling kicks in */
-    .grid {
-        width: max-content;
-    }
-}
-/* =====================================================
-   SMALL LANDSCAPE FIX — HEADER AWARE
-   ===================================================== */
-
-@media (orientation: landscape) and (max-width: 900px) {
-
-    /* Kill desktop margins that cause off-screen overflow */
-    .window {
+    .info-panel {
         width: 100%;
-        max-width: 100%;
-        margin: 0;
-        box-sizing: border-box;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
-    /* Ensure content cannot exceed viewport width */
-    .content {
-        max-width: 100vw;
-        overflow: hidden;
-    }
-
-    /* Allow grid to scroll instead of escaping */
-    .grid-scroll {
+    .timer-box,
+    .sound-box {
         flex: 1;
-        min-width: 0;
-        max-width: 100%;
-        overflow-x: auto;
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: touch;
+        min-width: 140px;
     }
 
-    /* Slightly reduce cell size to help fit */
-    .cell {
-        width: 28px;
-        height: 28px;
-        line-height: 28px;
-        font-size: 14px;
+    .right-panel {
+        width: 100%;
+    }
+
+    /* 🔑 shrink cells so 12x12 always fits */
+    :root {
+        --cell: clamp(18px, 6vw, 28px);
     }
 }
-
-
