@@ -240,3 +240,32 @@ li.found {
         overflow-y: hidden;
     }
 }
+/* =====================================================
+   SMALL DEVICE LANDSCAPE — FIT OR SCROLL
+   ===================================================== */
+
+@media (orientation: landscape) and (max-width: 900px) {
+
+    /* Let grid area take available width */
+    .grid-scroll {
+        flex: 1;
+        min-width: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Try to make grid fit first */
+    .cell {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 14px;
+    }
+
+    /* If still too wide, scrolling kicks in */
+    .grid {
+        width: max-content;
+    }
+}
+
