@@ -1,6 +1,6 @@
-/* 
+/* ============================================
    Base window layout (desktop + portrait)
-   */
+   ============================================ */
 
 .window {
     width: 900px;
@@ -22,9 +22,9 @@
     padding: 10px;
 }
 
-/*
+/* ============================================
    LEFT SIDE
-    */
+   ============================================ */
 
 .left-panel {
     display: flex;
@@ -58,9 +58,9 @@
     line-height: 1.4;
 }
 
-/* 
+/* ============================================
    WORDSEARCH GRID
-    */
+   ============================================ */
 
 .grid {
     display: grid;
@@ -87,18 +87,18 @@
     background: #99ff99;
 }
 
-/* 
+/* ============================================
    RIGHT SIDE
-   = */
+   ============================================ */
 
 .right-panel {
     width: 200px;
     margin-left: 10px;
 }
 
-/* 
+/* ============================================
    BUTTONS
-   */
+   ============================================ */
 
 .window button {
     border: 2px solid #000;
@@ -108,9 +108,9 @@
     cursor: pointer;
 }
 
-/* 
+/* ============================================
    WIN SCREEN
-    */
+   ============================================ */
 
 .win-screen {
     position: fixed;
@@ -137,15 +137,13 @@ li.found {
     text-decoration: line-through;
 }
 
-/*
+/* ============================================
    LANDSCAPE MOBILE OVERRIDE
-   Paulie’s solution for the orientation nightmare
-   Goal: entire grid visible on screen
-    */
+   Uses extra width, keeps grid fully visible
+   ============================================ */
 
 @media (orientation: landscape) and (max-width: 1024px) {
 
-    /* Let the game use the screen */
     .window {
         width: 100vw;
         max-width: none;
@@ -156,23 +154,20 @@ li.found {
         padding: 6px;
     }
 
-    /* Scale grid to viewport HEIGHT so it always fits */
     .cell {
         width: min(6vh, 40px);
         height: min(6vh, 40px);
         line-height: min(6vh, 40px);
         font-size: min(3vh, 18px);
     }
-
 }
-/* 
-   Emergency rotation for small screens
-   Rotates the game so the user can rotate
-   their phone to match
-    */
 
-@media (orientation: portrait) {
- 
+/* ============================================
+   EMERGENCY ROTATION (MOBILE ONLY)
+   Portrait + touch devices only
+   ============================================ */
+
+@media (orientation: portrait) and (hover: none) and (pointer: coarse) {
 
     body {
         overflow: hidden;
@@ -187,21 +182,11 @@ li.found {
         background: #000;
     }
 
-  .game-rotate-wrapper .window {
-    transform: rotate(90deg) scale(0.9);
-    transform-origin: center;
-    width: 100vh;
-    height: 100vw;
-    margin: 0;
-  }
+    .game-rotate-wrapper .window {
+        transform: rotate(90deg) scale(0.9);
+        transform-origin: center;
+        width: 100vh;
+        height: 100vw;
+        margin: 0;
+    }
 }
-
-   
-
-
-
-
-
-
-
-
