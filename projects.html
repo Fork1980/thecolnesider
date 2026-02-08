@@ -209,8 +209,9 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
     <p class="sip-intro">
         Enter the internal dimensions of the planter.
-        The <strong>overflow tube</strong> sets the maximum water level.
-        Once water reaches this height it will overflow and cannot rise any further.
+        The base reservoir is formed by a single layer of slotted
+        <strong>100&nbsp;mm diameter pipes</strong> laid side-by-side.
+        The overflow limits the maximum water level within these pipes.
     </p>
 
     <div class="unit-toggle">
@@ -224,17 +225,17 @@ how much water the reservoir can hold, and the total weight when it’s full and
         <div class="sip-form-grid">
             <div class="sip-row">
                 <span class="sip-label">Length</span>
-                <input type="number" id="lengthInput" value="1000" min="1" max="2500">
+                <input type="number" id="lengthInput" value="1500" min="1" max="2500">
             </div>
 
             <div class="sip-row">
                 <span class="sip-label">Width</span>
-                <input type="number" id="widthInput" value="400" min="1" max="1000">
+                <input type="number" id="widthInput" value="600" min="1" max="1000">
             </div>
 
             <div class="sip-row">
                 <span class="sip-label">Height</span>
-                <input type="number" id="heightInput" value="400" min="1" max="800">
+                <input type="number" id="heightInput" value="800" min="1" max="800">
             </div>
         </div>
     </fieldset>
@@ -258,22 +259,26 @@ how much water the reservoir can hold, and the total weight when it’s full and
     <div id="sipResults" class="sip-results"></div>
 
     <p class="sip-assumptions">
-        Water capacity is calculated up to the height of the overflow tube,
-        which limits the maximum water level. Soil weight assumes a typical
-        wet garden-soil bulk density of approximately
-        1.4&nbsp;kg per litre. Initial filling assumes the overflow outlet
-        can discharge water at least as quickly as it is added.
+        Water capacity is calculated from the internal volume of the slotted
+        pipe reservoir. Soil weight assumes a typical wet garden-soil bulk
+        density of approximately 1.4&nbsp;kg per litre. Initial filling assumes
+        the overflow outlet can discharge water at least as quickly as it is added.
     </p>
 
     <p class="sip-humour">
         <em>Dimensions are capped to sizes where you won’t need an engineer,
-        a crane or risk divorce proceedings.</em>
+        a crane, or risk divorce proceedings.</em>
     </p>
 
 </section>
 
 <script>
 const soilDensity = 1.4;
+
+// pipe assumptions
+const PIPE_DIAMETER = 100; // mm
+const PIPE_RADIUS_M = 0.05; // metres
+const PIPE_AREA = Math.PI * PIPE_RADIUS_M * PIPE_RADIUS_M;
 
 // realistic hard caps (mm)
 const MAX_LENGTH = 2500;
@@ -298,43 +303,53 @@ function calculateSIP() {
     let H = Number(heightInput.value) * m;
     let O = Number(overflowInput.value) * m;
 
-    // clamp to realistic limits
+    // clamp dimensions
     L = clamp(L, 1, MAX_LENGTH);
     W = clamp(W, 1, MAX_WIDTH);
     H = clamp(H, 1, MAX_HEIGHT);
+
+    // overflow height is informational only here
     O = clamp(O, 1, H - 1);
 
-    // write back so user sees corrections
+    // write back corrected values
     lengthInput.value = L / m;
     widthInput.value  = W / m;
     heightInput.value = H / m;
     overflowInput.value = O / m;
 
+    // number of pipes that fit side-by-side
+    const pipeCount = Math.floor(W / PIPE_DIAMETER);
+
+    // reservoir volume from pipe geometry
+    const pipeLengthM = L / 1000;
+    const waterVolume = pipeCount * PIPE_AREA * pipeLengthM * 1000; // litres
+
+    // total box volume
     const totalVolume = (L * W * H) / 1_000_000;
-    const waterVolume = (L * W * O) / 1_000_000;
-    const soilVolume  = totalVolume - waterVolume;
+
+    // soil volume is box volume minus pipe voids
+    const soilVolume = totalVolume - waterVolume;
+
     const totalWeight = waterVolume + (soilVolume * soilDensity);
 
     sipResults.innerHTML = `
-        <p><strong>Water capacity (to overflow):</strong> ${waterVolume.toFixed(1)} litres</p>
+        <p><strong>Number of reservoir pipes:</strong> ${pipeCount}</p>
+        <p><strong>Water capacity (pipe reservoir):</strong> ${waterVolume.toFixed(1)} litres</p>
         <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
         <p><strong>Total weight (wet):</strong> ${totalWeight.toFixed(0)} kg</p>
     `;
 }
 
 function resetSIP() {
-    lengthInput.value = 1000;
-    widthInput.value  = 400;
-    heightInput.value = 400;
+    lengthInput.value = 1500;
+    widthInput.value  = 600;
+    heightInput.value = 800;
     overflowInput.value = 100;
 
     document.querySelector('input[name="units"][value="mm"]').checked = true;
     sipResults.innerHTML = "";
 }
 </script>
-
-
-
 
 </details>
 
@@ -343,6 +358,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
