@@ -167,7 +167,8 @@ li.found {
    Rotate GAME ONLY, keep header/nav upright
    ===================================================== */
 
-@media (orientation: portrait) and (hover: none) and (pointer: coarse) {
+@media (orientation: portrait) {
+ 
 
     body {
         overflow-x: hidden;
@@ -198,3 +199,4 @@ li.found {
         margin: 0;
     }
 }
+
