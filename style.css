@@ -459,6 +459,100 @@ a:hover {
         max-width: 92%;
     }
 }
+/* =========================================
+   SIP PLANTER CALCULATOR
+   ========================================= */
+
+.sip-calculator {
+    max-width: 420px;
+    margin: 2rem auto;
+    padding: 1.25rem;
+    background: #f6f6f6;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-size: 0.95em;
+}
+
+.sip-calculator h3 {
+    text-align: center;
+    margin: 0 0 0.75rem 0;
+}
+
+.sip-intro {
+    font-size: 0.9em;
+    margin-bottom: 0.75rem;
+}
+
+/* Units toggle */
+
+.unit-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9em;
+}
+
+/* Input grid */
+
+.sip-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.sip-grid label {
+    display: block;
+    font-size: 0.9em;
+}
+
+.sip-grid input[type="range"] {
+    width: 100%;
+}
+
+.sip-grid input[type="number"] {
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+/* Buttons */
+
+.sip-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.sip-buttons button {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9em;
+    cursor: pointer;
+}
+
+/* Results */
+
+.sip-results {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #ffffff;
+    border-left: 4px solid #666;
+    font-size: 0.9em;
+}
+
+.sip-results p {
+    margin: 0.25rem 0;
+}
+
+/* Assumptions */
+
+.sip-assumptions {
+    margin-top: 0.75rem;
+    font-size: 0.75em;
+    color: #555;
+    line-height: 1.4;
+}
+
 
 
 
