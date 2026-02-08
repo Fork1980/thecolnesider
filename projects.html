@@ -323,7 +323,16 @@ function calculateSIP() {
 
     // reservoir volume from pipe geometry
     const pipeLengthM = L / 1000;
-    const waterVolume = pipeCount * PIPE_AREA * pipeLengthM * 1000; // litres
+   // effective fill height inside pipe (cannot exceed pipe diameter)
+const effectiveFill = Math.min(O, PIPE_DIAMETER);
+
+// fraction of pipe cross-section filled (linear approximation)
+const fillFraction = effectiveFill / PIPE_DIAMETER;
+
+// water volume based on partially filled pipes
+const waterVolume =
+    pipeCount * PIPE_AREA * pipeLengthM * fillFraction * 1000;
+
 
     // total box volume
     const totalVolume = (L * W * H) / 1_000_000;
@@ -360,6 +369,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
