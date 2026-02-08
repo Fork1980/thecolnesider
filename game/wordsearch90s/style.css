@@ -29,12 +29,14 @@
 .left-panel {
     display: flex;
     gap: 10px;
+    align-items: flex-start;
 }
 
 /* INFO COLUMN */
 
 .info-panel {
     width: 200px;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -59,25 +61,26 @@
 }
 
 /* =====================================================
-   WORDSEARCH GRID
+   WORDSEARCH GRID (SCROLL FIXED)
    ===================================================== */
 
-/* SCROLL CONTAINER (L ↔ R ONLY) */
+/* scroll container */
 .grid-scroll {
+    flex: 1;
+    min-width: 0;                  /* CRITICAL FLEX FIX */
     overflow-x: auto;
     overflow-y: hidden;
-    max-width: 100%;
     -webkit-overflow-scrolling: touch;
 }
 
-/* ACTUAL GRID */
+/* actual grid */
 .grid {
     display: grid;
     gap: 2px;
-    width: max-content; /* critical: allows horizontal scroll */
+    width: max-content;            /* allows horizontal overflow */
 }
 
-/* GRID CELLS */
+/* grid cells */
 .cell {
     width: 32px;
     height: 32px;
@@ -105,6 +108,7 @@
 .right-panel {
     width: 200px;
     margin-left: 10px;
+    flex-shrink: 0;
 }
 
 /* =====================================================
@@ -149,6 +153,24 @@ li.found {
 }
 
 /* =====================================================
+   ROTATION NOTICE
+   ===================================================== */
+
+#rotate-notice {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #f4f1eb;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    font-family: Georgia, serif;
+}
+
+/* =====================================================
    LANDSCAPE MOBILE OVERRIDE
    ===================================================== */
 
@@ -174,7 +196,6 @@ li.found {
 
 /* =====================================================
    MOBILE PORTRAIT ROTATION
-   Rotate GAME ONLY, keep header/nav upright
    ===================================================== */
 
 @media (orientation: portrait) {
@@ -183,16 +204,14 @@ li.found {
         overflow: hidden;
     }
 
-    /* Keep site header upright */
     header.site-header {
         position: relative;
         z-index: 10;
     }
 
-    /* Take game out of normal flow */
     .game-rotate-wrapper {
         position: fixed;
-        top: 120px;               /* header + nav height */
+        top: 120px;
         left: 0;
         width: 100vw;
         height: calc(100vh - 120px);
@@ -204,9 +223,10 @@ li.found {
         z-index: 1;
     }
 
-    /* Rotate the actual game */
     .game-rotate-wrapper .window {
         transform: rotate(90deg);
         transform-origin: center;
         width: 100vh;
-        margin
+        margin: 0;
+    }
+}
