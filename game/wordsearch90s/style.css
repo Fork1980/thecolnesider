@@ -1,6 +1,6 @@
-/* ============================================
+/* 
    Base window layout (desktop + portrait)
-   ============================================ */
+   */
 
 .window {
     width: 900px;
@@ -22,9 +22,9 @@
     padding: 10px;
 }
 
-/* ============================================
+/* 
    LEFT SIDE
-   ============================================ */
+ */
 
 .left-panel {
     display: flex;
@@ -58,9 +58,9 @@
     line-height: 1.4;
 }
 
-/* ============================================
+/* 
    WORDSEARCH GRID
-   ============================================ */
+    */
 
 .grid {
     display: grid;
@@ -87,18 +87,18 @@
     background: #99ff99;
 }
 
-/* ============================================
+/* 
    RIGHT SIDE
-   ============================================ */
+   */
 
 .right-panel {
     width: 200px;
     margin-left: 10px;
 }
 
-/* ============================================
+/* 
    BUTTONS
-   ============================================ */
+   */
 
 .window button {
     border: 2px solid #000;
@@ -108,9 +108,9 @@
     cursor: pointer;
 }
 
-/* ============================================
+/* 
    WIN SCREEN
-   ============================================ */
+   */
 
 .win-screen {
     position: fixed;
@@ -137,10 +137,10 @@ li.found {
     text-decoration: line-through;
 }
 
-/* ============================================
+/* 
    LANDSCAPE MOBILE OVERRIDE
    Uses extra width, keeps grid fully visible
-   ============================================ */
+   */
 
 @media (orientation: landscape) and (max-width: 1024px) {
 
@@ -162,31 +162,30 @@ li.found {
     }
 }
 
-/* ============================================
-   EMERGENCY ROTATION (MOBILE ONLY)
-   Portrait + touch devices only
-   ============================================ */
+
+/* 
+   ROTATION (MOBILE ONLY)
+   Rotate game, keep header/nav visible
+    */
 
 @media (orientation: portrait) and (hover: none) and (pointer: coarse) {
 
     body {
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .game-rotate-wrapper {
-        position: fixed;
-        inset: 0;
         display: flex;
-        align-items: center;
         justify-content: center;
-        background: #000;
+        margin-top: 1rem; /* space below header */
     }
 
     .game-rotate-wrapper .window {
-        transform: rotate(90deg) scale(0.9);
+        transform: rotate(90deg) scale(0.85);
         transform-origin: center;
         width: 100vh;
-        height: 100vw;
+        height: auto;
         margin: 0;
     }
+
 }
