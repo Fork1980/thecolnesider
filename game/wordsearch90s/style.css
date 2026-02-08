@@ -163,12 +163,21 @@ li.found {
 }
 
 
-/* 
+/* ============================================
    ROTATION (MOBILE ONLY)
    Rotate game, keep header/nav visible
-    */
+   ============================================ */
 
 @media (orientation: portrait) and (hover: none) and (pointer: coarse) {
+
+    /* Break out of site-wide layout constraints */
+    main {
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
 
     body {
         overflow-x: hidden;
@@ -184,8 +193,9 @@ li.found {
         transform: rotate(90deg) scale(0.85);
         transform-origin: center;
         width: 100vh;
-        height: auto;
         margin: 0;
     }
+}
 
 }
+
