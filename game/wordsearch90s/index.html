@@ -113,6 +113,152 @@
 <script src="game.js"></script>
 
 <script>
+let noticeTimeout = null;
+
+function checkOrientation() {
+    const notice = document.getElementById('rotate-notice');
+    if (!notice) return;
+
+    const isPortrait = window.innerHeight > window.innerWidth;
+
+    if (isPortrait) {
+        // show briefly in portrait
+        notice.style.display = 'flex';
+
+        // reset timer each time portrait is detected
+        if (noticeTimeout) clearTimeout(noticeTimeout);
+        noticeTimeout = setTimeout(() => {
+            notice.style.display = 'none';
+        }, 3000);
+    } else {
+        // landscape: always hidden
+        notice.style.display = 'none';
+        if (noticeTimeout) clearTimeout(noticeTimeout);
+        noticeTimeout = null;
+    }
+}
+
+window.addEventListener('load', checkOrientation);
+window.addEventListener('resize', checkOrientation);
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Search · Paul Newland</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Site-wide styles -->
+    <link rel="stylesheet" href="../../style.css">
+
+    <!-- Game styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ROTATION NOTICE -->
+<div id="rotate-notice">
+    <p>Mr. Newland says “For your sanity; please turn your device to landscape orientation.”</p>
+</div>
+
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-title">PAUL NEWLAND</div>
+
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../projects.html">Projects</a></li>
+                <li><a href="../../woodwork.html">Woodwork</a></li>
+                <li><a class="active" href="../../wordsearch-90s.html">Word Search</a></li>
+                <li><a href="../../travel.html">Travel</a></li>
+                <li><a href="../../guestbook.html">Guest Book</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="colour-bar"></div>
+</header>
+
+<main>
+
+    <!-- GAME ROTATION SANDBOX -->
+    <div class="game-rotate-wrapper">
+
+        <div class="window">
+            <div class="title-bar">WORD SEARCH v1.0</div>
+
+            <div class="content">
+
+                <!-- LEFT SIDE -->
+                <div class="left-panel">
+
+                    <!-- INFO COLUMN -->
+                    <div class="info-panel">
+                        <div class="timer-box">
+                            TIME: <span id="timer">00:00</span>
+                        </div>
+
+                        <div class="sound-box">
+                            <button id="soundToggle">SOUND: OFF</button>
+                        </div>
+
+                        <div class="text-box">
+                            <p>
+                                What started off as a bit of Java and HTML practice...
+                            </p>
+                            <p>
+                                An early 90's style wordsearch made
+                                for YOUR enjoyment!
+                            </p>
+                            <p>
+                                Switch the sound-on for the full
+                                immersive retro experience...or don't!
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- GRID (SCROLLABLE L ↔ R) -->
+                    <div class="grid-scroll">
+                        <div id="grid" class="grid"></div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="right-panel">
+                    <div class="word-list-title">FIND THESE WORDS</div>
+                    <ul id="wordList"></ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+<!-- WIN SCREEN -->
+<div id="winScreen" class="win-screen hidden">
+    <div class="win-box">
+        <h2>🎉 NICE ONE! 🎉</h2>
+        <p>YOU FOUND ALL THE WORDS</p>
+        <p>TIME: <span id="finalTime">00:00</span></p>
+        <button id="continueBtn">PLAY AGAIN</button>
+    </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop src="music/in_game.mp3"></audio>
+<audio id="winSound" src="music/win.mp3"></audio>
+
+<!-- GAME SCRIPT -->
+<script src="game.js"></script>
+
+<script>
 let noticeShown = false;
 
 function checkOrientation() {
@@ -140,4 +286,5 @@ window.addEventListener('resize', checkOrientation);
 
 </body>
 </html>
+
 
