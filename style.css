@@ -519,7 +519,9 @@ a:hover {
 
 .sip-dimensions label,
 .sip-single {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.9em;
 }
 
@@ -565,6 +567,7 @@ a:hover {
     color: #555;
     line-height: 1.4;
 }
+
 
 
 
