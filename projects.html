@@ -209,85 +209,67 @@ how much water the reservoir can hold, and the total weight when it’s full and
     <h3>SIP planter capacity calculator</h3>
 
     <p class="sip-intro">
-        Enter the <strong>internal dimensions</strong> of your planter.
-        Water capacity is set by the height of the filler tube above the base,
-        which defines the maximum water level.
+        Enter the internal dimensions of the planter.
+        The height of the <strong>overflow tube</strong> defines the maximum
+        water level. Once water reaches this height it will overflow and cannot
+        rise any further.
     </p>
 
     <div class="unit-toggle">
-        <label>
-            <input type="radio" name="units" value="mm" checked>
-            mm
-        </label>
-        <label>
-            <input type="radio" name="units" value="cm">
-            cm
-        </label>
+        <label><input type="radio" name="units" value="mm" checked> mm</label>
+        <label><input type="radio" name="units" value="cm"> cm</label>
     </div>
 
-    <div class="sip-grid">
+    <fieldset class="sip-fieldset">
+        <legend>Dimensions</legend>
 
-        <label>
-            Length
-            <input type="range" id="lengthRange" min="300" max="2000" value="1000">
-            <input type="number" id="lengthInput" value="1000">
+        <div class="sip-dimensions">
+            <label>
+                Length
+                <input type="number" id="lengthInput" value="1000" min="1">
+            </label>
+
+            <label>
+                Width
+                <input type="number" id="widthInput" value="400" min="1">
+            </label>
+
+            <label>
+                Height
+                <input type="number" id="heightInput" value="400" min="1">
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset class="sip-fieldset">
+        <legend>Overflow</legend>
+
+        <label class="sip-single">
+            Overflow tube height (from base)
+            <input type="number" id="overflowInput" value="100" min="1">
         </label>
-
-        <label>
-            Width
-            <input type="range" id="widthRange" min="300" max="1200" value="400">
-            <input type="number" id="widthInput" value="400">
-        </label>
-
-        <label>
-            Height
-            <input type="range" id="heightRange" min="250" max="1200" value="400">
-            <input type="number" id="heightInput" value="400">
-        </label>
-
-        <label>
-            Filler tube height (water depth)
-            <input type="range" id="waterRange" min="50" max="300" value="100">
-            <input type="number" id="waterInput" value="100">
-        </label>
-
-    </div>
+    </fieldset>
 
     <div class="sip-buttons">
-        <button onclick="calculateSIP()">Calculate</button>
-        <button onclick="resetSIP()">Reset</button>
+        <button type="button" onclick="calculateSIP()">Calculate</button>
+        <button type="button" onclick="resetSIP()">Reset</button>
     </div>
 
     <div id="sipResults" class="sip-results"></div>
 
     <p class="sip-assumptions">
-        Water capacity is calculated from the height of the filler tube above
-        the base of the planter, which defines the maximum water level.
-        Soil weight assumes a wet soil density of approximately
-        1.4&nbsp;kg per litre. Figures are indicative only and intended
-        for general guidance.
+        Water capacity is calculated up to the height of the overflow tube,
+        which limits the maximum water level. Soil weight assumes a typical
+        wet garden-soil bulk density of approximately 1.4&nbsp;kg per litre.
+        Initial filling assumes the overflow outlet can discharge water at least
+        as quickly as it is added. Figures are indicative only and intended for
+        general guidance.
     </p>
 
 </section>
 
 <script>
 const soilDensity = 1.4;
-
-const controls = [
-    ["lengthRange", "lengthInput"],
-    ["widthRange", "widthInput"],
-    ["heightRange", "heightInput"],
-    ["waterRange", "waterInput"]
-];
-
-// Keep sliders and number inputs in sync
-controls.forEach(([rangeId, inputId]) => {
-    const r = document.getElementById(rangeId);
-    const n = document.getElementById(inputId);
-
-    r.addEventListener("input", () => n.value = r.value);
-    n.addEventListener("input", () => r.value = n.value);
-});
 
 function unitMultiplier() {
     return document.querySelector('input[name="units"]:checked').value === "cm"
@@ -301,37 +283,37 @@ function calculateSIP() {
     const L = Number(lengthInput.value) * m;
     const W = Number(widthInput.value) * m;
     const H = Number(heightInput.value) * m;
-    const waterDepth = Number(waterInput.value) * m;
+    const overflow = Number(overflowInput.value) * m;
 
-    if (L <= 0 || W <= 0 || H <= waterDepth) {
+    if (L <= 0 || W <= 0 || H <= 0 || overflow <= 0 || overflow >= H) {
         sipResults.innerHTML =
-            "<p>Please enter sensible internal dimensions.</p>";
+            "<p>Please enter sensible internal dimensions and an overflow height below the planter height.</p>";
         return;
     }
 
     const totalVolume = (L * W * H) / 1_000_000;
-    const waterVolume = (L * W * waterDepth) / 1_000_000;
+    const waterVolume = (L * W * overflow) / 1_000_000;
     const soilVolume  = totalVolume - waterVolume;
-
     const totalWeight = waterVolume + (soilVolume * soilDensity);
 
     sipResults.innerHTML = `
+        <p><strong>Water capacity (to overflow):</strong> ${waterVolume.toFixed(1)} litres</p>
         <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
-        <p><strong>Water capacity:</strong> ${waterVolume.toFixed(1)} litres</p>
         <p><strong>Total weight (wet):</strong> ${totalWeight.toFixed(0)} kg</p>
     `;
 }
 
 function resetSIP() {
-    lengthRange.value = lengthInput.value = 1000;
-    widthRange.value  = widthInput.value  = 400;
-    heightRange.value = heightInput.value = 400;
-    waterRange.value  = waterInput.value  = 100;
+    lengthInput.value = 1000;
+    widthInput.value  = 400;
+    heightInput.value = 400;
+    overflowInput.value = 100;
 
     document.querySelector('input[name="units"][value="mm"]').checked = true;
     sipResults.innerHTML = "";
 }
 </script>
+
 
 
 </details>
@@ -341,6 +323,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
