@@ -113,25 +113,22 @@
 <script src="game.js"></script>
 
 <script>
-/*
-   Orientation helper
-   Politely nudges users toward landscape,
-   then gets out of the way
-*/
+let noticeShown = false;
 
 function checkOrientation() {
     const notice = document.getElementById('rotate-notice');
     if (!notice) return;
 
-    if (window.innerHeight > window.innerWidth) {
+    if (window.innerHeight > window.innerWidth && !noticeShown) {
+        noticeShown = true;
         notice.style.display = 'flex';
 
-        // Hide after 3 seconds
         setTimeout(() => {
             notice.style.display = 'none';
         }, 3000);
+    }
 
-    } else {
+    if (window.innerWidth > window.innerHeight) {
         notice.style.display = 'none';
     }
 }
@@ -140,5 +137,7 @@ window.addEventListener('load', checkOrientation);
 window.addEventListener('resize', checkOrientation);
 </script>
 
+
 </body>
 </html>
+
