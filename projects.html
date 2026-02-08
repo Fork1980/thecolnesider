@@ -206,13 +206,14 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
 <section class="sip-calculator">
 
+   <section class="sip-calculator">
+
     <h3>SIP planter capacity calculator</h3>
 
     <p class="sip-intro">
         Enter the internal dimensions of the planter.
-        The height of the <strong>overflow tube</strong> defines the maximum
-        water level. Once water reaches this height it will overflow and cannot
-        rise any further.
+        The <strong>overflow tube</strong> sets the maximum water level.
+        Once water reaches this height it will overflow and cannot rise any further.
     </p>
 
     <div class="unit-toggle">
@@ -224,18 +225,15 @@ how much water the reservoir can hold, and the total weight when it’s full and
         <legend>Dimensions</legend>
 
         <div class="sip-dimensions">
-            <label>
-                Length
+            <label data-label="Length">
                 <input type="number" id="lengthInput" value="1000" min="1">
             </label>
 
-            <label>
-                Width
+            <label data-label="Width">
                 <input type="number" id="widthInput" value="400" min="1">
             </label>
 
-            <label>
-                Height
+            <label data-label="Height">
                 <input type="number" id="heightInput" value="400" min="1">
             </label>
         </div>
@@ -244,8 +242,7 @@ how much water the reservoir can hold, and the total weight when it’s full and
     <fieldset class="sip-fieldset">
         <legend>Overflow</legend>
 
-        <label class="sip-single">
-            Overflow tube height (from base)
+        <label class="sip-single" data-label="Overflow height">
             <input type="number" id="overflowInput" value="100" min="1">
         </label>
     </fieldset>
@@ -262,8 +259,8 @@ how much water the reservoir can hold, and the total weight when it’s full and
         which limits the maximum water level. Soil weight assumes a typical
         wet garden-soil bulk density of approximately 1.4&nbsp;kg per litre.
         Initial filling assumes the overflow outlet can discharge water at least
-        as quickly as it is added. Figures are indicative only and intended for
-        general guidance.
+        as quickly as it is added. Figures are indicative only and intended
+        for general guidance.
     </p>
 
 </section>
@@ -287,7 +284,7 @@ function calculateSIP() {
 
     if (L <= 0 || W <= 0 || H <= 0 || overflow <= 0 || overflow >= H) {
         sipResults.innerHTML =
-            "<p>Please enter sensible internal dimensions and an overflow height below the planter height.</p>";
+            "<p>Please enter sensible dimensions and an overflow height below the planter height.</p>";
         return;
     }
 
@@ -316,6 +313,7 @@ function resetSIP() {
 
 
 
+
 </details>
 
 </section>
@@ -323,6 +321,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
