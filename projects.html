@@ -204,14 +204,135 @@ how much water the reservoir can hold, and the total weight when it’s full and
 <figure><img src="images/Projects/soilpipes10.jpg"><figcaption>Remaining perforated pipe</figcaption></figure>
 <figure><img src="images/Projects/lengths12.jpg"><figcaption>Remaining timber stock</figcaption></figure>
 
-<div class="intro-box">
-    <h3 style="text-align:center;">Rough capacity calculations</h3>
-    <ul>
-        <li><strong>Water capacity:</strong> ~85&nbsp;litres</li>
-        <li><strong>Soil volume:</strong> ~300&nbsp;litres</li>
-        <li><strong>Estimated total weight (wet):</strong> ~280&nbsp;kg</li>
-    </ul>
-</div>
+<section class="sip-calculator">
+
+    <h3>SIP planter capacity calculator</h3>
+
+    <p class="sip-intro">
+        Enter the <strong>internal dimensions</strong> of your planter.
+        Water capacity is set by the height of the filler tube above the base,
+        which defines the maximum water level.
+    </p>
+
+    <div class="unit-toggle">
+        <label>
+            <input type="radio" name="units" value="mm" checked>
+            mm
+        </label>
+        <label>
+            <input type="radio" name="units" value="cm">
+            cm
+        </label>
+    </div>
+
+    <div class="sip-grid">
+
+        <label>
+            Length
+            <input type="range" id="lengthRange" min="300" max="2000" value="1000">
+            <input type="number" id="lengthInput" value="1000">
+        </label>
+
+        <label>
+            Width
+            <input type="range" id="widthRange" min="300" max="1200" value="400">
+            <input type="number" id="widthInput" value="400">
+        </label>
+
+        <label>
+            Height
+            <input type="range" id="heightRange" min="250" max="1200" value="400">
+            <input type="number" id="heightInput" value="400">
+        </label>
+
+        <label>
+            Filler tube height (water depth)
+            <input type="range" id="waterRange" min="50" max="300" value="100">
+            <input type="number" id="waterInput" value="100">
+        </label>
+
+    </div>
+
+    <div class="sip-buttons">
+        <button onclick="calculateSIP()">Calculate</button>
+        <button onclick="resetSIP()">Reset</button>
+    </div>
+
+    <div id="sipResults" class="sip-results"></div>
+
+    <p class="sip-assumptions">
+        Water capacity is calculated from the height of the filler tube above
+        the base of the planter, which defines the maximum water level.
+        Soil weight assumes a wet soil density of approximately
+        1.4&nbsp;kg per litre. Figures are indicative only and intended
+        for general guidance.
+    </p>
+
+</section>
+
+<script>
+const soilDensity = 1.4;
+
+const controls = [
+    ["lengthRange", "lengthInput"],
+    ["widthRange", "widthInput"],
+    ["heightRange", "heightInput"],
+    ["waterRange", "waterInput"]
+];
+
+// Keep sliders and number inputs in sync
+controls.forEach(([rangeId, inputId]) => {
+    const r = document.getElementById(rangeId);
+    const n = document.getElementById(inputId);
+
+    r.addEventListener("input", () => n.value = r.value);
+    n.addEventListener("input", () => r.value = n.value);
+});
+
+function unitMultiplier() {
+    return document.querySelector('input[name="units"]:checked').value === "cm"
+        ? 10
+        : 1;
+}
+
+function calculateSIP() {
+    const m = unitMultiplier();
+
+    const L = Number(lengthInput.value) * m;
+    const W = Number(widthInput.value) * m;
+    const H = Number(heightInput.value) * m;
+    const waterDepth = Number(waterInput.value) * m;
+
+    if (L <= 0 || W <= 0 || H <= waterDepth) {
+        sipResults.innerHTML =
+            "<p>Please enter sensible internal dimensions.</p>";
+        return;
+    }
+
+    const totalVolume = (L * W * H) / 1_000_000;
+    const waterVolume = (L * W * waterDepth) / 1_000_000;
+    const soilVolume  = totalVolume - waterVolume;
+
+    const totalWeight = waterVolume + (soilVolume * soilDensity);
+
+    sipResults.innerHTML = `
+        <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
+        <p><strong>Water capacity:</strong> ${waterVolume.toFixed(1)} litres</p>
+        <p><strong>Total weight (wet):</strong> ${totalWeight.toFixed(0)} kg</p>
+    `;
+}
+
+function resetSIP() {
+    lengthRange.value = lengthInput.value = 1000;
+    widthRange.value  = widthInput.value  = 400;
+    heightRange.value = heightInput.value = 400;
+    waterRange.value  = waterInput.value  = 100;
+
+    document.querySelector('input[name="units"][value="mm"]').checked = true;
+    sipResults.innerHTML = "";
+}
+</script>
+
 
 </details>
 
@@ -220,5 +341,6 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
 </body>
 </html>
+
 
 
