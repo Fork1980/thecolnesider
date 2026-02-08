@@ -136,7 +136,10 @@ function fillRandomLetters() {
 // RENDERING
 // ====================
 function renderGrid() {
-    gridEl.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 32px)`;
+
+    // 🔴 ONLY ADDITION — tells CSS the grid size
+    gridEl.style.setProperty("--grid-size", GRID_SIZE);
+
     gridEl.innerHTML = "";
 
     grid.forEach((row, y) => {
@@ -187,18 +190,15 @@ function selectCell(cell) {
     const dx = x - last.x;
     const dy = y - last.y;
 
-    // Must be adjacent
     if (Math.abs(dx) + Math.abs(dy) !== 1) {
         clearSelection();
         return;
     }
 
-    // Lock direction
     if (selectedCells.length === 1) {
         selectedCells.direction = dx !== 0 ? "horizontal" : "vertical";
     }
 
-    // Must follow direction
     if (
         (selectedCells.direction === "horizontal" && dy !== 0) ||
         (selectedCells.direction === "vertical" && dx !== 0)
@@ -277,7 +277,7 @@ function startTimer() {
 }
 
 // ====================
-// SOUND TOGGLE (BROWSER-SAFE)
+// SOUND TOGGLE
 // ====================
 soundToggle.addEventListener("click", () => {
     soundOn = !soundOn;
