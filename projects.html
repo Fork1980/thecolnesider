@@ -260,9 +260,10 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
     <p class="sip-assumptions">
         Water capacity is calculated from the internal volume of the slotted
-        pipe reservoir. Soil weight assumes a typical wet garden-soil bulk
+        pipes that make the reservoir. Soil weight assumes a typical wet garden-soil bulk
         density of approximately 1.4&nbsp;kg per litre. Initial filling assumes
         the overflow outlet can discharge water at least as quickly as it is added.
+        
     </p>
 
     <p class="sip-humour">
@@ -334,6 +335,7 @@ function calculateSIP() {
 
     sipResults.innerHTML = `
         <p><strong>Number of reservoir pipes:</strong> ${pipeCount}</p>
+        <p><strong>Reservoir pipes:</strong> ${pipeCount} × ${pipeLengthM.toFixed(2)} m (100 mm diameter)</p>
         <p><strong>Water capacity (pipe reservoir):</strong> ${waterVolume.toFixed(1)} litres</p>
         <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
         <p><strong>Total weight (wet):</strong> ${totalWeight.toFixed(0)} kg</p>
@@ -358,6 +360,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
