@@ -206,8 +206,6 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
 <section class="sip-calculator">
 
-<section class="sip-calculator">
-
     <h3>SIP planter capacity calculator</h3>
 
     <p class="sip-intro">
@@ -227,17 +225,17 @@ how much water the reservoir can hold, and the total weight when it’s full and
         <div class="sip-form-grid">
             <div class="sip-row">
                 <span class="sip-label">Length</span>
-                <input type="number" id="lengthInput" value="1000" min="1">
+                <input type="number" id="lengthInput" value="1000" min="1" max="2500">
             </div>
 
             <div class="sip-row">
                 <span class="sip-label">Width</span>
-                <input type="number" id="widthInput" value="400" min="1">
+                <input type="number" id="widthInput" value="400" min="1" max="1000">
             </div>
 
             <div class="sip-row">
                 <span class="sip-label">Height</span>
-                <input type="number" id="heightInput" value="400" min="1">
+                <input type="number" id="heightInput" value="400" min="1" max="800">
             </div>
         </div>
     </fieldset>
@@ -248,7 +246,7 @@ how much water the reservoir can hold, and the total weight when it’s full and
         <div class="sip-form-grid">
             <div class="sip-row">
                 <span class="sip-label">Overflow height</span>
-                <input type="number" id="overflowInput" value="100" min="1">
+                <input type="number" id="overflowInput" value="100" min="1" max="800">
             </div>
         </div>
     </fieldset>
@@ -263,16 +261,29 @@ how much water the reservoir can hold, and the total weight when it’s full and
     <p class="sip-assumptions">
         Water capacity is calculated up to the height of the overflow tube,
         which limits the maximum water level. Soil weight assumes a typical
-        wet garden-soil bulk density of approximately 1.4&nbsp;kg per litre.
-        Initial filling assumes the overflow outlet can discharge water at least
-        as quickly as it is added. Figures are indicative only and intended for
-        general guidance.
+        wet garden-soil bulk density of approximately
+        1.4&nbsp;kg per litre. Initial filling assumes the overflow outlet
+        can discharge water at least as quickly as it is added.
+    </p>
+
+    <p class="sip-humour">
+        <em>Dimensions are capped to sizes where you won’t need an engineer,
+        a crane, or risk divorce proceedings.</em>
     </p>
 
 </section>
 
 <script>
 const soilDensity = 1.4;
+
+// realistic hard caps (mm)
+const MAX_LENGTH = 2500;
+const MAX_WIDTH  = 1000;
+const MAX_HEIGHT = 800;
+
+function clamp(n, min, max) {
+    return Math.min(Math.max(n, min), max);
+}
 
 function unitMultiplier() {
     return document.querySelector('input[name="units"]:checked').value === "cm"
@@ -283,19 +294,25 @@ function unitMultiplier() {
 function calculateSIP() {
     const m = unitMultiplier();
 
-    const L = Number(lengthInput.value) * m;
-    const W = Number(widthInput.value) * m;
-    const H = Number(heightInput.value) * m;
-    const overflow = Number(overflowInput.value) * m;
+    let L = Number(lengthInput.value) * m;
+    let W = Number(widthInput.value) * m;
+    let H = Number(heightInput.value) * m;
+    let O = Number(overflowInput.value) * m;
 
-    if (L <= 0 || W <= 0 || H <= 0 || overflow <= 0 || overflow >= H) {
-        sipResults.innerHTML =
-            "<p>Please enter sensible dimensions and an overflow height below the planter height.</p>";
-        return;
-    }
+    // clamp to realistic limits
+    L = clamp(L, 1, MAX_LENGTH);
+    W = clamp(W, 1, MAX_WIDTH);
+    H = clamp(H, 1, MAX_HEIGHT);
+    O = clamp(O, 1, H - 1);
+
+    // write back so user sees corrections
+    lengthInput.value = L / m;
+    widthInput.value  = W / m;
+    heightInput.value = H / m;
+    overflowInput.value = O / m;
 
     const totalVolume = (L * W * H) / 1_000_000;
-    const waterVolume = (L * W * overflow) / 1_000_000;
+    const waterVolume = (L * W * O) / 1_000_000;
     const soilVolume  = totalVolume - waterVolume;
     const totalWeight = waterVolume + (soilVolume * soilDensity);
 
@@ -327,6 +344,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
