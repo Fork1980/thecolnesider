@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Site-wide styles -->
-  <link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../style.css">
 
     <!-- Game styles -->
     <link rel="stylesheet" href="style.css">
@@ -15,6 +14,7 @@
 
 <body>
 
+<!-- ROTATION NOTICE -->
 <div id="rotate-notice">
     <p>Mr. Newland says “For your sanity; please turn your device to landscape orientation.”</p>
 </div>
@@ -26,7 +26,7 @@
         <nav>
             <ul>
                 <li><a href="../../index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
+                <li><a href="../../projects.html">Projects</a></li>
                 <li><a href="../../woodwork.html">Woodwork</a></li>
                 <li><a class="active" href="../../wordsearch-90s.html">Word Search</a></li>
                 <li><a href="../../travel.html">Travel</a></li>
@@ -39,7 +39,7 @@
 
 <main>
 
-    <!-- SAFE WRAPPER: does nothing yet -->
+    <!-- GAME ROTATION SANDBOX -->
     <div class="game-rotate-wrapper">
 
         <div class="window">
@@ -111,9 +111,9 @@
 <script src="game.js"></script>
 
 <script>
-/* 
-   Paulie’s solution for the orientation nightmare
-   Politely asks users to rotate their device for the word search
+/*
+   Orientation helper
+   Politely nudges users toward landscape
 */
 
 function checkOrientation() {
@@ -133,6 +133,3 @@ window.addEventListener('resize', checkOrientation);
 
 </body>
 </html>
-
-
-
