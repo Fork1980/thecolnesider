@@ -206,7 +206,7 @@ how much water the reservoir can hold, and the total weight when it’s full and
 
 <section class="sip-calculator">
 
-   <section class="sip-calculator">
+<section class="sip-calculator">
 
     <h3>SIP planter capacity calculator</h3>
 
@@ -224,27 +224,33 @@ how much water the reservoir can hold, and the total weight when it’s full and
     <fieldset class="sip-fieldset">
         <legend>Dimensions</legend>
 
-        <div class="sip-dimensions">
-            <label data-label="Length">
+        <div class="sip-form-grid">
+            <div class="sip-row">
+                <span class="sip-label">Length</span>
                 <input type="number" id="lengthInput" value="1000" min="1">
-            </label>
+            </div>
 
-            <label data-label="Width">
+            <div class="sip-row">
+                <span class="sip-label">Width</span>
                 <input type="number" id="widthInput" value="400" min="1">
-            </label>
+            </div>
 
-            <label data-label="Height">
+            <div class="sip-row">
+                <span class="sip-label">Height</span>
                 <input type="number" id="heightInput" value="400" min="1">
-            </label>
+            </div>
         </div>
     </fieldset>
 
     <fieldset class="sip-fieldset">
         <legend>Overflow</legend>
 
-        <label class="sip-single" data-label="Overflow height">
-            <input type="number" id="overflowInput" value="100" min="1">
-        </label>
+        <div class="sip-form-grid">
+            <div class="sip-row">
+                <span class="sip-label">Overflow height</span>
+                <input type="number" id="overflowInput" value="100" min="1">
+            </div>
+        </div>
     </fieldset>
 
     <div class="sip-buttons">
@@ -259,8 +265,8 @@ how much water the reservoir can hold, and the total weight when it’s full and
         which limits the maximum water level. Soil weight assumes a typical
         wet garden-soil bulk density of approximately 1.4&nbsp;kg per litre.
         Initial filling assumes the overflow outlet can discharge water at least
-        as quickly as it is added. Figures are indicative only and intended
-        for general guidance.
+        as quickly as it is added. Figures are indicative only and intended for
+        general guidance.
     </p>
 
 </section>
@@ -321,6 +327,7 @@ function resetSIP() {
 
 </body>
 </html>
+
 
 
 
