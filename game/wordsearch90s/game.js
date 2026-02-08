@@ -2,16 +2,18 @@
 // CONFIG
 // ====================
 const GRID_SIZE = 10;
+
 const WORDS = [
     "WOOD",
     "LATHE",
     "AIREDALE",
     "RALEIGH",
     "RETRO",
-    "GATE",
-    "SANTA",
+    "NEWLAND",
     "ALISON"
 ];
+// ↑ You can add/remove words here safely
+//   Longest word must be ≤ GRID_SIZE
 
 // ====================
 // STATE
@@ -92,6 +94,7 @@ function createEmptyGrid() {
 function placeWords() {
     WORDS.forEach(word => {
         let placed = false;
+
         while (!placed) {
             const horizontal = Math.random() < 0.5;
             const x = Math.floor(Math.random() * GRID_SIZE);
@@ -99,8 +102,11 @@ function placeWords() {
 
             if (canPlace(word, x, y, horizontal)) {
                 for (let i = 0; i < word.length; i++) {
-                    if (horizontal) grid[y][x + i] = word[i];
-                    else grid[y + i][x] = word[i];
+                    if (horizontal) {
+                        grid[y][x + i] = word[i];
+                    } else {
+                        grid[y + i][x] = word[i];
+                    }
                 }
                 placed = true;
             }
@@ -113,7 +119,10 @@ function canPlace(word, x, y, horizontal) {
     if (!horizontal && y + word.length > GRID_SIZE) return false;
 
     for (let i = 0; i < word.length; i++) {
-        const cell = horizontal ? grid[y][x + i] : grid[y + i][x];
+        const cell = horizontal
+            ? grid[y][x + i]
+            : grid[y + i][x];
+
         if (cell !== "" && cell !== word[i]) return false;
     }
     return true;
@@ -121,6 +130,7 @@ function canPlace(word, x, y, horizontal) {
 
 function fillRandomLetters() {
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     for (let y = 0; y < GRID_SIZE; y++) {
         for (let x = 0; x < GRID_SIZE; x++) {
             if (grid[y][x] === "") {
@@ -138,13 +148,14 @@ function renderGrid() {
 
     grid.forEach((row, y) => {
         row.forEach((letter, x) => {
-            const div = document.createElement("div");
-            div.textContent = letter;
-            div.className = "cell";
-            div.dataset.x = x;
-            div.dataset.y = y;
-            div.addEventListener("click", () => selectCell(div));
-            gridEl.appendChild(div);
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.textContent = letter;
+            cell.dataset.x = x;
+            cell.dataset.y = y;
+
+            cell.addEventListener("click", () => selectCell(cell));
+            gridEl.appendChild(cell);
         });
     });
 }
@@ -169,8 +180,8 @@ function selectCell(cell) {
         bgMusic.play().catch(() => {});
     }
 
-    const x = parseInt(cell.dataset.x, 10);
-    const y = parseInt(cell.dataset.y, 10);
+    const x = Number(cell.dataset.x);
+    const y = Number(cell.dataset.y);
 
     if (selectedCells.length === 0) {
         if (!cell.classList.contains("found")) {
@@ -204,6 +215,7 @@ function selectCell(cell) {
     if (!cell.classList.contains("found")) {
         cell.classList.add("selected");
     }
+
     selectedCells.push({ x, y, cell });
 
     const currentWord = selectedCells.map(c => c.cell.textContent).join("");
@@ -260,8 +272,8 @@ function checkSelection() {
 // ====================
 function startTimer() {
     if (timerStarted) return;
-    timerStarted = true;
 
+    timerStarted = true;
     timerInterval = setInterval(() => {
         seconds++;
         const m = String(Math.floor(seconds / 60)).padStart(2, "0");
