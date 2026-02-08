@@ -113,7 +113,8 @@
 <script>
 /*
    Orientation helper
-   Politely nudges users toward landscape
+   Politely nudges users toward landscape,
+   then gets out of the way
 */
 
 function checkOrientation() {
@@ -122,6 +123,12 @@ function checkOrientation() {
 
     if (window.innerHeight > window.innerWidth) {
         notice.style.display = 'flex';
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            notice.style.display = 'none';
+        }, 3000);
+
     } else {
         notice.style.display = 'none';
     }
@@ -131,5 +138,7 @@ window.addEventListener('load', checkOrientation);
 window.addEventListener('resize', checkOrientation);
 </script>
 
+
 </body>
 </html>
+
