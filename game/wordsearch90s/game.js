@@ -1,18 +1,16 @@
 // ====================
 // CONFIG
 // ====================
-const GRID_SIZE = 12;
+const GRID_SIZE = 10;
+
 const WORDS = [
     "WOOD",
     "LATHE",
     "AIREDALE",
     "RALEIGH",
-    "OU",
     "RETRO",
-    "GATE",
-    "SANTA",
-    "NEWLAND",
-    "ALISON"
+    "NEWLAND"
+    // Add/remove words here (max length <= 10)
 ];
 
 // ====================
@@ -66,7 +64,7 @@ function initGame() {
     wordListEl.innerHTML = "";
 
     createEmptyGrid();
-    placeWords();
+    placeWordsSafely();
     fillRandomLetters();
     renderGrid();
     renderWordList();
@@ -91,23 +89,40 @@ function createEmptyGrid() {
     }
 }
 
-function placeWords() {
-    WORDS.forEach(word => {
+/* prevents infinite loops when word list gets awkward */
+function placeWordsSafely() {
+    for (const word of WORDS) {
+        const upper = word.toUpperCase();
+
+        if (upper.length > GRID_SIZE) {
+            console.warn(`Skipping "${upper}" (too long for ${GRID_SIZE}x${GRID_SIZE})`);
+            continue;
+        }
+
         let placed = false;
-        while (!placed) {
+        let attempts = 0;
+        const MAX_ATTEMPTS = 500;
+
+        while (!placed && attempts < MAX_ATTEMPTS) {
+            attempts++;
+
             const horizontal = Math.random() < 0.5;
             const x = Math.floor(Math.random() * GRID_SIZE);
             const y = Math.floor(Math.random() * GRID_SIZE);
 
-            if (canPlace(word, x, y, horizontal)) {
-                for (let i = 0; i < word.length; i++) {
-                    if (horizontal) grid[y][x + i] = word[i];
-                    else grid[y + i][x] = word[i];
+            if (canPlace(upper, x, y, horizontal)) {
+                for (let i = 0; i < upper.length; i++) {
+                    if (horizontal) grid[y][x + i] = upper[i];
+                    else grid[y + i][x] = upper[i];
                 }
                 placed = true;
             }
         }
-    });
+
+        if (!placed) {
+            console.warn(`Could not place "${upper}" after ${MAX_ATTEMPTS} attempts`);
+        }
+    }
 }
 
 function canPlace(word, x, y, horizontal) {
@@ -136,7 +151,7 @@ function fillRandomLetters() {
 // RENDERING
 // ====================
 function renderGrid() {
-    gridEl.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 32px)`;
+    gridEl.style.setProperty("--grid-size", String(GRID_SIZE)); // critical for CSS columns
     gridEl.innerHTML = "";
 
     grid.forEach((row, y) => {
@@ -144,8 +159,8 @@ function renderGrid() {
             const div = document.createElement("div");
             div.textContent = letter;
             div.className = "cell";
-            div.dataset.x = x;
-            div.dataset.y = y;
+            div.dataset.x = String(x);
+            div.dataset.y = String(y);
             div.addEventListener("click", () => selectCell(div));
             gridEl.appendChild(div);
         });
@@ -154,9 +169,10 @@ function renderGrid() {
 
 function renderWordList() {
     WORDS.forEach(word => {
+        const upper = word.toUpperCase();
         const li = document.createElement("li");
-        li.textContent = word;
-        li.id = `word-${word}`;
+        li.textContent = upper;
+        li.id = `word-${upper}`;
         wordListEl.appendChild(li);
     });
 }
@@ -172,13 +188,11 @@ function selectCell(cell) {
         bgMusic.play().catch(() => {});
     }
 
-    const x = parseInt(cell.dataset.x, 10);
-    const y = parseInt(cell.dataset.y, 10);
+    const x = Number(cell.dataset.x);
+    const y = Number(cell.dataset.y);
 
     if (selectedCells.length === 0) {
-        if (!cell.classList.contains("found")) {
-            cell.classList.add("selected");
-        }
+        if (!cell.classList.contains("found")) cell.classList.add("selected");
         selectedCells.push({ x, y, cell });
         return;
     }
@@ -187,18 +201,15 @@ function selectCell(cell) {
     const dx = x - last.x;
     const dy = y - last.y;
 
-    // Must be adjacent
     if (Math.abs(dx) + Math.abs(dy) !== 1) {
         clearSelection();
         return;
     }
 
-    // Lock direction
     if (selectedCells.length === 1) {
         selectedCells.direction = dx !== 0 ? "horizontal" : "vertical";
     }
 
-    // Must follow direction
     if (
         (selectedCells.direction === "horizontal" && dy !== 0) ||
         (selectedCells.direction === "vertical" && dx !== 0)
@@ -207,9 +218,7 @@ function selectCell(cell) {
         return;
     }
 
-    if (!cell.classList.contains("found")) {
-        cell.classList.add("selected");
-    }
+    if (!cell.classList.contains("found")) cell.classList.add("selected");
     selectedCells.push({ x, y, cell });
 
     const currentWord = selectedCells.map(c => c.cell.textContent).join("");
@@ -224,9 +233,7 @@ function selectCell(cell) {
 
 function clearSelection() {
     selectedCells.forEach(c => {
-        if (!c.cell.classList.contains("found")) {
-            c.cell.classList.remove("selected");
-        }
+        if (!c.cell.classList.contains("found")) c.cell.classList.remove("selected");
     });
     selectedCells = [];
     delete selectedCells.direction;
@@ -236,13 +243,15 @@ function clearSelection() {
 // WORD CHECK
 // ====================
 function isValidPrefix(str) {
-    return WORDS.some(word => word.startsWith(str));
+    return WORDS.some(w => w.toUpperCase().startsWith(str));
 }
 
 function checkSelection() {
     const word = selectedCells.map(c => c.cell.textContent).join("");
 
-    if (WORDS.includes(word) && !foundWords.has(word)) {
+    const upperWords = WORDS.map(w => w.toUpperCase());
+
+    if (upperWords.includes(word) && !foundWords.has(word)) {
         foundWords.add(word);
 
         selectedCells.forEach(c => {
@@ -255,7 +264,7 @@ function checkSelection() {
 
         clearSelection();
 
-        if (foundWords.size === WORDS.length) {
+        if (foundWords.size === upperWords.length) {
             winGame();
         }
     }
@@ -277,7 +286,7 @@ function startTimer() {
 }
 
 // ====================
-// SOUND TOGGLE (BROWSER-SAFE)
+// SOUND TOGGLE
 // ====================
 soundToggle.addEventListener("click", () => {
     soundOn = !soundOn;
