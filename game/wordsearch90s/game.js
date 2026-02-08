@@ -1,17 +1,15 @@
 // ====================
 // CONFIG
 // ====================
-const GRID_SIZE = 12;
+const GRID_SIZE = 10;
 const WORDS = [
     "WOOD",
     "LATHE",
     "AIREDALE",
     "RALEIGH",
-    "OU",
     "RETRO",
     "GATE",
     "SANTA",
-    "NEWLAND",
     "ALISON"
 ];
 
@@ -136,10 +134,6 @@ function fillRandomLetters() {
 // RENDERING
 // ====================
 function renderGrid() {
-
-    // 🔴 ONLY ADDITION — tells CSS the grid size
-    gridEl.style.setProperty("--grid-size", GRID_SIZE);
-
     gridEl.innerHTML = "";
 
     grid.forEach((row, y) => {
