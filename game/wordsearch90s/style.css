@@ -165,11 +165,11 @@ li.found {
     }
 
 }
-/* ============================================
+/* 
    Emergency rotation for small screens
    Rotates the game so the user can rotate
    their phone to match
-   ============================================ */
+    */
 
 @media (orientation: portrait) {
  
@@ -193,9 +193,11 @@ li.found {
     width: 100vh;
     height: 100vw;
     margin: 0;
+  }
 }
 
    
+
 
 
 
