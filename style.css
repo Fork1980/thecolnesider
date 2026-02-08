@@ -481,17 +481,17 @@ a:hover {
 
 .sip-intro {
     font-size: 0.9em;
-    margin: 0 0 0.75rem 0;
     line-height: 1.4;
+    margin-bottom: 0.75rem;
 }
 
-/* Units toggle */
+/* Units */
 
 .unit-toggle {
     display: flex;
     justify-content: center;
     gap: 1.5rem;
-    margin: 0 0 0.75rem 0;
+    margin-bottom: 0.75rem;
     font-size: 0.9em;
 }
 
@@ -500,7 +500,7 @@ a:hover {
 .sip-fieldset {
     border: 1px solid #bbb;
     padding: 0.75rem;
-    margin: 0 0 1rem 0;
+    margin-bottom: 1rem;
     background: #f9f9f9;
 }
 
@@ -509,13 +509,15 @@ a:hover {
     padding: 0 0.4em;
 }
 
-/* Dimensions on one line */
+/* Dimension layout */
 
 .sip-dimensions {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
 }
+
+/* Label + input alignment */
 
 .sip-dimensions label,
 .sip-single {
@@ -525,9 +527,16 @@ a:hover {
     font-size: 0.9em;
 }
 
+.sip-dimensions label::before,
+.sip-single::before {
+    content: attr(data-label);
+    width: 6.5rem;
+    text-align: right;
+    color: #333;
+}
+
 .sip-calculator input[type="number"] {
-    width: 100%;
-    margin-top: 0.25rem;
+    width: 6rem;
 }
 
 /* Buttons */
@@ -536,7 +545,6 @@ a:hover {
     display: flex;
     justify-content: center;
     gap: 1rem;
-    margin-top: 0.25rem;
 }
 
 .sip-buttons button {
@@ -559,7 +567,7 @@ a:hover {
     margin: 0.25rem 0;
 }
 
-/* Assumptions / caveats */
+/* Assumptions */
 
 .sip-assumptions {
     margin-top: 0.75rem;
@@ -567,6 +575,7 @@ a:hover {
     color: #555;
     line-height: 1.4;
 }
+
 
 
 
