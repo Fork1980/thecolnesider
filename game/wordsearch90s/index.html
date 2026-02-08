@@ -1,118 +1,99 @@
-.window {
-    width: 900px;
-    margin: 40px auto;
-    background: #c0c0c0;
-    border: 2px solid #000;
-    font-family: Arial, sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Search · Paul Newland</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.title-bar {
-    background: #000080;
-    color: white;
-    padding: 6px 10px;
-    font-weight: bold;
-}
+    <!-- Site-wide styles -->
+    <link rel="stylesheet" href="../../style.css">
 
-.content {
-    display: flex;
-    padding: 10px;
-}
+    <!-- Game styles (RESET / BASELINE VERSION) -->
+    <link rel="stylesheet" href="style.css">
+</head>
 
-/* LEFT SIDE */
-.left-panel {
-    display: flex;
-    gap: 10px;
-}
+<body>
 
-/* INFO COLUMN */
-.info-panel {
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-title">PAUL NEWLAND</div>
 
-.timer-box,
-.sound-box,
-.word-list-title {
-    background: #e0e0e0;
-    border: 2px solid #000;
-    padding: 6px;
-    text-align: center;
-    font-weight: bold;
-}
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../projects.html">Projects</a></li>
+                <li><a href="../../woodwork.html">Woodwork</a></li>
+                <li><a class="active" href="../../wordsearch-90s.html">Word Search</a></li>
+                <li><a href="../../travel.html">Travel</a></li>
+                <li><a href="../../guestbook.html">Guest Book</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="colour-bar"></div>
+</header>
 
-.text-box {
-    background: #ffffff;
-    border: 2px solid #000;
-    padding: 8px;
-    font-size: 13px;
-    line-height: 1.4;
-}
+<main>
 
-/* GRID */
-.grid {
-    display: grid;
-    gap: 2px;
-}
+    <div class="window">
 
-.cell {
-    width: 32px;
-    height: 32px;
-    background: white;
-    border: 1px solid #000;
-    text-align: center;
-    line-height: 32px;
-    font-weight: bold;
-    cursor: pointer;
-    user-select: none;
-}
+        <div class="title-bar">WORD SEARCH v1.0</div>
 
-.cell.selected {
-    background: #ffff99;
-}
+        <div class="content">
 
-.cell.found {
-    background: #99ff99;
-}
+            <!-- LEFT SIDE -->
+            <div class="left-panel">
 
-/* RIGHT SIDE */
-.right-panel {
-    width: 200px;
-    margin-left: 10px;
-}
+                <!-- INFO -->
+                <div class="info-panel">
+                    <div class="timer-box">
+                        TIME: <span id="timer">00:00</span>
+                    </div>
 
-/* BUTTONS */
-.window button {
-    border: 2px solid #000;
-    padding: 4px 10px;
-    background: #e0e0e0;
-    font-weight: bold;
-    cursor: pointer;
-}
+                    <div class="sound-box">
+                        <button id="soundToggle" type="button">SOUND: OFF</button>
+                    </div>
 
-/* WIN SCREEN */
-.win-screen {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+                    <div class="text-box">
+                        <p>What started off as a bit of Java and HTML practice…</p>
+                        <p>An early 90s style wordsearch made for YOUR enjoyment!</p>
+                        <p>Switch the sound on for the full immersive retro experience — or don’t.</p>
+                    </div>
+                </div>
 
-.win-box {
-    background: #c0c0c0;
-    border: 3px solid #000;
-    padding: 20px;
-    text-align: center;
-    width: 300px;
-}
+                <!-- GRID -->
+                <div class="grid-scroll">
+                    <div id="grid" class="grid"></div>
+                </div>
 
-.hidden {
-    display: none;
-}
+            </div>
 
-li.found {
-    text-decoration: line-through;
-}
+            <!-- RIGHT SIDE -->
+            <div class="right-panel">
+                <div class="word-list-title">FIND THESE WORDS</div>
+                <ul id="wordList"></ul>
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+<!-- WIN SCREEN -->
+<div id="winScreen" class="win-screen hidden">
+    <div class="win-box">
+        <h2>🎉 NICE ONE! 🎉</h2>
+        <p>YOU FOUND ALL THE WORDS</p>
+        <p>TIME: <span id="finalTime">00:00</span></p>
+        <button id="continueBtn" type="button">PLAY AGAIN</button>
+    </div>
+</div>
+
+<!-- AUDIO -->
+<audio id="bgMusic" loop src="music/in_game.mp3"></audio>
+<audio id="winSound" src="music/win.mp3"></audio>
+
+<!-- GAME LOGIC -->
+<script src="game.js"></script>
+
+</body>
+</html>
