@@ -1,6 +1,6 @@
-/* 
-   Base window layout (desktop + portrait)
-   */
+/* =====================================================
+   BASE WINDOW LAYOUT (DESKTOP + PORTRAIT DEFAULT)
+   ===================================================== */
 
 .window {
     width: 900px;
@@ -22,9 +22,9 @@
     padding: 10px;
 }
 
-/* 
+/* =====================================================
    LEFT SIDE
- */
+   ===================================================== */
 
 .left-panel {
     display: flex;
@@ -58,9 +58,9 @@
     line-height: 1.4;
 }
 
-/* 
+/* =====================================================
    WORDSEARCH GRID
-    */
+   ===================================================== */
 
 .grid {
     display: grid;
@@ -87,18 +87,18 @@
     background: #99ff99;
 }
 
-/* 
+/* =====================================================
    RIGHT SIDE
-   */
+   ===================================================== */
 
 .right-panel {
     width: 200px;
     margin-left: 10px;
 }
 
-/* 
+/* =====================================================
    BUTTONS
-   */
+   ===================================================== */
 
 .window button {
     border: 2px solid #000;
@@ -108,9 +108,9 @@
     cursor: pointer;
 }
 
-/* 
+/* =====================================================
    WIN SCREEN
-   */
+   ===================================================== */
 
 .win-screen {
     position: fixed;
@@ -137,10 +137,10 @@ li.found {
     text-decoration: line-through;
 }
 
-/* 
+/* =====================================================
    LANDSCAPE MOBILE OVERRIDE
    Uses extra width, keeps grid fully visible
-   */
+   ===================================================== */
 
 @media (orientation: landscape) and (max-width: 1024px) {
 
@@ -162,40 +162,39 @@ li.found {
     }
 }
 
-
-/* ============================================
-   ROTATION (MOBILE ONLY)
-   Rotate game, keep header/nav visible
-   ============================================ */
+/* =====================================================
+   MOBILE PORTRAIT ROTATION
+   Rotate GAME ONLY, keep header/nav upright
+   ===================================================== */
 
 @media (orientation: portrait) and (hover: none) and (pointer: coarse) {
-
-    /* Break out of site-wide layout constraints */
-    main {
-        max-width: none;
-        width: 100%;
-        margin: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
 
     body {
         overflow-x: hidden;
     }
 
+    main {
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Wrapper around .window ONLY */
     .game-rotate-wrapper {
+        position: relative;
+        width: 100vw;
+        height: calc(100vh - 120px); /* adjust if header/nav height changes */
         display: flex;
+        align-items: center;
         justify-content: center;
-        margin-top: 1rem; /* space below header */
+        overflow: hidden;
     }
 
     .game-rotate-wrapper .window {
-        transform: rotate(90deg) scale(0.85);
+        transform: rotate(90deg);
         transform-origin: center;
         width: 100vh;
         margin: 0;
     }
 }
-
-}
-
