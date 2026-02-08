@@ -1,5 +1,5 @@
 /* =====================================================
-   BASE WINDOW LAYOUT (DESKTOP + PORTRAIT DEFAULT)
+   BASE WINDOW LAYOUT (DESKTOP + DEFAULT)
    ===================================================== */
 
 .window {
@@ -139,7 +139,6 @@ li.found {
 
 /* =====================================================
    LANDSCAPE MOBILE OVERRIDE
-   Uses extra width, keeps grid fully visible
    ===================================================== */
 
 @media (orientation: landscape) and (max-width: 1024px) {
@@ -168,30 +167,33 @@ li.found {
    ===================================================== */
 
 @media (orientation: portrait) {
- 
 
     body {
-        overflow-x: hidden;
-    }
-
-    main {
-        max-width: none;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Wrapper around .window ONLY */
-    .game-rotate-wrapper {
-        position: relative;
-        width: 100vw;
-        height: calc(100vh - 120px); /* adjust if header/nav height changes */
-        display: flex;
-        align-items: center;
-        justify-content: center;
         overflow: hidden;
     }
 
+    /* Keep site header upright */
+    header.site-header {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Take game out of normal flow */
+    .game-rotate-wrapper {
+        position: fixed;
+        top: 120px;               /* header + nav height */
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 120px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f4f1eb;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    /* Rotate the actual game */
     .game-rotate-wrapper .window {
         transform: rotate(90deg);
         transform-origin: center;
@@ -199,4 +201,3 @@ li.found {
         margin: 0;
     }
 }
-
