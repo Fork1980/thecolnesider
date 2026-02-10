@@ -173,6 +173,7 @@ img {
     height: auto;
     display: block;
     margin: 1.2rem auto;
+    border-radius: 12px;
 }
 
 /* Ensure hero logo is not affected by generic img rules */
@@ -277,7 +278,7 @@ a:hover {
 /* Force all images to the same visual size */
 .photo-grid-2x2 img {
     width: 100%;
-    aspect-ratio: 4 / 3;     /* matches your top-left image */
+    aspect-ratio: 4 / 3;     
     object-fit: cover;       /* crop, don’t stretch */
     display: block;
     border-radius: 12px;
@@ -578,6 +579,7 @@ a:hover {
     color: #666;
     text-align: center;
 }
+
 
 
 
