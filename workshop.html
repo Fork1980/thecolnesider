@@ -42,10 +42,6 @@
     Click the project titles below to view each one.
 </p>
 
-<!-- ==================================================
-     PROJECTS
-     ================================================== -->
-
 <h2 style="text-align:center;">Projects</h2>
 
 <!-- ================= Raleigh Nova ================= -->
@@ -123,89 +119,124 @@
 
 </div>
 
+<!-- ✅ CALCULATOR AT END OF SIP -->
+
+<section class="sip-calculator">
+    <h3>SIP planter capacity calculator</h3>
+
+    <p class="sip-intro">
+        Enter the internal dimensions of the planter.
+        Reservoir formed using <strong>100 mm pipes</strong>.
+    </p>
+
+    <div class="unit-toggle">
+        <label><input type="radio" name="units" value="mm" checked> mm</label>
+        <label><input type="radio" name="units" value="cm"> cm</label>
+    </div>
+
+    <div class="sip-row">
+        <span>Length</span>
+        <input type="number" id="lengthInput" value="1500">
+    </div>
+
+    <div class="sip-row">
+        <span>Width</span>
+        <input type="number" id="widthInput" value="600">
+    </div>
+
+    <div class="sip-row">
+        <span>Height</span>
+        <input type="number" id="heightInput" value="800">
+    </div>
+
+    <div class="sip-row">
+        <span>Overflow</span>
+        <input type="number" id="overflowInput" value="100">
+    </div>
+
+    <div class="sip-buttons">
+        <button onclick="calculateSIP()">Calculate</button>
+        <button onclick="resetSIP()">Reset</button>
+    </div>
+
+    <div id="sipResults"></div>
+</section>
 
 </details>
 
 <hr class="section-divider">
 
-<!-- ==================================================
-     WOODWORK
-     ================================================== -->
-
 <h2 style="text-align:center;">Woodwork</h2>
 
 <!-- ================= Gate ================= -->
-
 <details class="intro-box">
 <summary><strong>Making a garden gate</strong></summary>
-
-<p>
-    Built using lap joints and floating tongue-and-groove boards
-    to allow seasonal movement.
-</p>
-
-<h3>Build sequence</h3>
-
+<p>Built using lap joints and floating tongue-and-groove boards.</p>
 <div class="project-gallery">
-
     <figure><img src="images/woodwork/gate/gate_01.jpg"><figcaption>Out with the old</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_02.jpg"><figcaption>Chop-chop!</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_03.jpg"><figcaption>Wood waste offcuts</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_04.jpg"><figcaption>Frame joints ready</figcaption></figure>
-
-    <figure><img src="images/woodwork/gate/gate_05.jpg"><figcaption>First finished joint</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_06.jpg"><figcaption>Dry fitting the frame</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_07.jpg"><figcaption>Routing rebates</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_08.jpg"><figcaption>Assembly underway</figcaption></figure>
-
-    <figure><img src="images/woodwork/gate/gate_09.jpg"><figcaption>Heavy duty hinges</figcaption></figure>
     <figure><img src="images/woodwork/gate/gate_10.jpg"><figcaption>Finished gate</figcaption></figure>
-    <figure><img src="images/woodwork/gate/gate_11.jpg"><figcaption>Lock & latch fitted</figcaption></figure>
-
 </div>
-
-
 </details>
 
 <!-- ================= Go-Kart ================= -->
-
 <details class="intro-box">
 <summary><strong>Go-kart build</strong></summary>
-
-<p>
-    Built from Bosch plans for my daughter.
-</p>
-
-<h3>Build sequence</h3>
-
+<p>Built from Bosch plans for my daughter.</p>
 <div class="project-gallery">
-
     <figure><img src="images/woodwork/kart/planning1.jpg"><figcaption>Plans at the ready</figcaption></figure>
-    <figure><img src="images/woodwork/kart/birch2.jpg"><figcaption>Birch ply body panels</figcaption></figure>
-    <figure><img src="images/woodwork/kart/swheel3.jpg"><figcaption>Steering wheel trials</figcaption></figure>
-    <figure><img src="images/woodwork/kart/parts4.jpg"><figcaption>All parts cut</figcaption></figure>
-
-    <figure><img src="images/woodwork/kart/axle5.jpg"><figcaption>Front axle assembly</figcaption></figure>
-    <figure><img src="images/woodwork/kart/base6.jpg"><figcaption>Base & relief holes</figcaption></figure>
-    <figure><img src="images/woodwork/kart/semi7.jpg"><figcaption>Frame assembly</figcaption></figure>
-    <figure><img src="images/woodwork/kart/steercol8.jpg"><figcaption>Steering column</figcaption></figure>
-
-    <figure><img src="images/woodwork/kart/brake.jpg"><figcaption>Brake block test</figcaption></figure>
-    <figure><img src="images/woodwork/kart/acle.jpg"><figcaption>Underside glider layer</figcaption></figure>
-    <figure><img src="images/woodwork/kart/link11.jpg"><figcaption>Cable routing</figcaption></figure>
-    <figure><img src="images/woodwork/kart/seat9.jpg"><figcaption>Driver’s seat</figcaption></figure>
-
     <figure><img src="images/woodwork/kart/fin1.jpg"><figcaption>Finished kart</figcaption></figure>
-    <figure><img src="images/woodwork/kart/fin2.jpg"><figcaption>Interior details</figcaption></figure>
-
 </div>
-
-
 </details>
 
 </section>
 </main>
 
+<script>
+const PIPE_DIAMETER = 100;
+const PIPE_RADIUS_M = 0.05;
+const PIPE_AREA = Math.PI * PIPE_RADIUS_M * PIPE_RADIUS_M;
+const soilDensity = 1.4;
+
+const lengthInput = document.getElementById("lengthInput");
+const widthInput = document.getElementById("widthInput");
+const heightInput = document.getElementById("heightInput");
+const overflowInput = document.getElementById("overflowInput");
+const sipResults = document.getElementById("sipResults");
+
+function unitMultiplier() {
+    return document.querySelector('input[name="units"]:checked').value === "cm" ? 10 : 1;
+}
+
+function calculateSIP() {
+    const m = unitMultiplier();
+    const L = Number(lengthInput.value) * m;
+    const W = Number(widthInput.value) * m;
+    const H = Number(heightInput.value) * m;
+    const O = Number(overflowInput.value) * m;
+
+    const pipeCount = Math.floor(W / PIPE_DIAMETER);
+    const pipeLengthM = L / 1000;
+
+    const effectiveFill = Math.min(O, PIPE_DIAMETER);
+    const fillFraction = effectiveFill / PIPE_DIAMETER;
+
+    const waterVolume = pipeCount * PIPE_AREA * pipeLengthM * fillFraction * 1000;
+    const totalVolume = (L * W * H) / 1_000_000;
+    const soilVolume = totalVolume - waterVolume;
+    const totalWeight = waterVolume + (soilVolume * soilDensity);
+
+    sipResults.innerHTML = `
+        <p><strong>Reservoir pipes:</strong> ${pipeCount}</p>
+        <p><strong>Water capacity:</strong> ${waterVolume.toFixed(1)} litres</p>
+        <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
+        <p><strong>Total wet weight:</strong> ${totalWeight.toFixed(0)} kg</p>
+    `;
+}
+
+function resetSIP() {
+    sipResults.innerHTML = "";
+}
+</script>
+
 </body>
 </html>
-
