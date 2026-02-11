@@ -661,6 +661,175 @@ a:hover {
 .workshop-page .project-gallery img {
     margin: 0;
 }
+/* =====================================================
+   WILLIE JOE / VEG PATCH WIDGET
+   ===================================================== */
+
+/* Intro text above widget */
+.willie-intro {
+    max-width: 520px;
+    margin: 10px auto 6px;
+    font-size: 0.95rem;
+    text-align: center;
+    opacity: 0.75;
+}
+
+/* Main widget container */
+.year-widget {
+    max-width: 520px;
+    margin: 30px auto 10px;
+    padding: 30px 22px 34px;
+    border: 2px solid #222;
+    border-radius: 14px;
+    background: #f4f1eb;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: background 0.6s ease;
+}
+
+/* Seasonal modes */
+.year-widget.winter-mode {
+    background: #808080;
+}
+
+.year-widget.spring-mode {
+    background: #f1f5ef;
+}
+
+/* Month row layout */
+.month-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 72px;
+}
+
+.month-box {
+    font-weight: bold;
+}
+
+/* Season icon box */
+.season-icon {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #222;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Winter contrast fixes */
+.year-widget.winter-mode .month-box,
+.year-widget.winter-mode .season-caption,
+.year-widget.winter-mode .season-icon {
+    color: white;
+    border-color: #ddd;
+}
+
+/* Timeline line */
+.year-line {
+    position: relative;
+    height: 4px;
+    background: #222;
+    border-radius: 2px;
+    margin: 18px 6px 0;
+}
+
+/* Willie sprite */
+.willie {
+    position: absolute;
+    top: -87px;
+    width: 42px;
+    image-rendering: pixelated;
+    transition: left 0.8s ease;
+}
+
+/* =====================================================
+   SNOW EFFECT (WINTER)
+   ===================================================== */
+
+.snow {
+    position: absolute;
+    inset: -90px 0 0 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    width: 6px;
+    height: 6px;
+    background: white;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+
+.snowflake::before,
+.snowflake::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: white;
+}
+
+.snowflake::before {
+    transform: rotate(60deg);
+}
+
+.snowflake::after {
+    transform: rotate(120deg);
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110px) translateX(6px);
+        opacity: 0.2;
+    }
+}
+
+/* =====================================================
+   SPRING DRIZZLE EFFECT
+   ===================================================== */
+
+.drizzle {
+    position: absolute;
+    inset: -90px 0 0 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.raindrop {
+    position: absolute;
+    top: -10px;
+    width: 2px;
+    height: 10px;
+    background: rgba(120, 160, 180, 0.45);
+    border-radius: 2px;
+    opacity: 0.5;
+    animation: drizzle-fall linear infinite;
+}
+
+@keyframes drizzle-fall {
+    to {
+        transform: translateY(110px) translateX(2px);
+        opacity: 0.15;
+    }
+}
+
+/* =====================================================
+   VEG PATCH TEXT TWEAKS
+   ===================================================== */
+
+.vegpatch-heading {
+    text-align: center;
+}
+
+.vegpatch-subtitle {
+    font-weight: bold;
+    font-style: italic;
+}
+
 
 
 
