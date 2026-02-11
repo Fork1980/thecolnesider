@@ -140,6 +140,9 @@ h1 {
 /* =====================================================
    CONTENT BLOCKS
    ===================================================== */
+.landing-intro {
+    text-align: center;
+}
 
 .intro-box {
     margin: 1.3rem auto;
@@ -586,6 +589,7 @@ a:hover {
     color: #666;
     text-align: center;
 }
+
 
 
 
