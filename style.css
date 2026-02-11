@@ -133,7 +133,9 @@ h1 {
 .subtitle {
     text-align: center;
     font-style: italic;
+    font-weight: bold;
     margin: 0 0 0.9rem;
+
 }
 
 
@@ -589,6 +591,7 @@ a:hover {
     color: #666;
     text-align: center;
 }
+
 
 
 
