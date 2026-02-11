@@ -126,6 +126,9 @@ h1 {
     text-align: center;
     margin: 0.2rem 0 0.15rem;
 }
+.landing-intro h1 {
+    text-align: left;
+}
 
 .subtitle {
     text-align: center;
@@ -583,6 +586,7 @@ a:hover {
     color: #666;
     text-align: center;
 }
+
 
 
 
