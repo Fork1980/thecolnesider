@@ -921,6 +921,33 @@ a:hover {
     .diary-table td:nth-child(6)::before { content: "Notes: "; }
 
 }
+/* =====================================================
+   LANDING PAGE FOOTER
+   ===================================================== */
+
+.landing-footer {
+    margin-top: 3rem;                 /* space above footer */
+    padding: 1.2rem 0;                /* breathing room */
+    text-align: center;               /* centre text */
+    font-size: 0.7rem;                /* soft small text */
+    color: #777;                      /* muted grey */
+    opacity: 0.7;                     /* gentle fade */
+    border-top: 1px solid rgba(0,0,0,0.05);  /* very subtle divider */
+}
+
+/* Footer links */
+.landing-footer a {
+    color: #777;                      /* match text */
+    text-decoration: none;            /* remove underline */
+    transition: opacity 0.2s ease;    /* smooth hover */
+}
+
+/* Hover behaviour */
+.landing-footer a:hover {
+    text-decoration: underline;       /* gentle interaction cue */
+    opacity: 1;                       /* brighten slightly */
+}
+
 
 
 
