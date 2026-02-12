@@ -835,8 +835,10 @@ a:hover {
    ========================= */
 
 .diary-section {
-    margin-top: 2rem;
+    max-width: 900px;
+    margin: 2rem auto;
 }
+
 
 .diary-controls {
     display: flex;
@@ -870,6 +872,7 @@ a:hover {
     color: #555;
     font-style: italic;
 }
+
 
 
 
