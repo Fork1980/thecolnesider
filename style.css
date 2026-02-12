@@ -851,7 +851,9 @@ a:hover {
     border-collapse: collapse;
     font-size: 0.95rem;
     background: #fff;
+    table-layout: fixed;
 }
+
 
 .diary-table th {
     text-align: left;
@@ -872,6 +874,7 @@ a:hover {
     color: #555;
     font-style: italic;
 }
+
 
 
 
