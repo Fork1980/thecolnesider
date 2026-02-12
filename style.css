@@ -967,6 +967,17 @@ main {
     text-decoration: underline;
     opacity: 1;
 }
+/* Privacy text toggle */
+
+.privacy-text {
+    display: none;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+    color: #777;
+    text-align: center;
+    line-height: 1.4;
+}
+
 
 
 
