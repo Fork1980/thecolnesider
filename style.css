@@ -922,31 +922,52 @@ a:hover {
 
 }
 /* =====================================================
-   LANDING PAGE FOOTER
+   PAGE LAYOUT FIX (Sticky Footer)
+   ===================================================== */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content expands to push footer down */
+main {
+    flex: 1;
+}
+
+
+/* =====================================================
+   LANDING PAGE FOOTER - keep 'em informed
    ===================================================== */
 
 .landing-footer {
-    margin-top: 3rem;                 /* space above footer */
-    padding: 1.2rem 0;                /* breathing room */
-    text-align: center;               /* centre text */
-    font-size: 0.7rem;                /* soft small text */
-    color: #777;                      /* muted grey */
-    opacity: 0.7;                     /* gentle fade */
-    border-top: 1px solid rgba(0,0,0,0.05);  /* very subtle divider */
+    margin-top: 3rem;
+    padding: 1.2rem 0;
+    text-align: center;
+    font-size: 0.7rem;
+    color: #777;
+    opacity: 0.7;
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
 
 /* Footer links */
 .landing-footer a {
-    color: #777;                      /* match text */
-    text-decoration: none;            /* remove underline */
-    transition: opacity 0.2s ease;    /* smooth hover */
+    color: #777;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
 }
 
 /* Hover behaviour */
 .landing-footer a:hover {
-    text-decoration: underline;       /* gentle interaction cue */
-    opacity: 1;                       /* brighten slightly */
+    text-decoration: underline;
+    opacity: 1;
 }
+
 
 
 
