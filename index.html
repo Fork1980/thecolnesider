@@ -88,6 +88,21 @@
     Guest book messages are voluntary and handled via Formspree.
 </div>
 
+<script>
+const privacyLink = document.getElementById("privacyLink");
+const privacyText = document.getElementById("privacyText");
+
+privacyLink.onclick = function(e) {
+    e.preventDefault();
+
+    if (privacyText.style.display === "block") {
+        privacyText.style.display = "none";
+    } else {
+        privacyText.style.display = "block";
+    }
+};
+</script>
+
 
 
 
