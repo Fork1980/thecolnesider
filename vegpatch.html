@@ -82,6 +82,36 @@
 
 </div>
 
+<!-- Veg Patch Diary -->
+<div class="diary-section">
+
+    <h2 class="vegpatch-heading">Veg Patch Diary</h2>
+
+    <div class="diary-controls">
+        <select id="cropFilter">
+            <option value="all">All Crops</option>
+        </select>
+
+        <button id="sortNewest">Newest First</button>
+    </div>
+
+    <table class="diary-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Season</th>
+                <th>Crop</th>
+                <th>State</th>
+                <th>Pests</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody id="diaryBody"></tbody>
+    </table>
+
+</div>
+
+    
 <!-- Gallery -->
 <div class="gallery-section">
 
@@ -113,8 +143,104 @@
 
 </main>
 
+<script>
+let diaryEntries = [];
+
+fetch("data/vegpatch-diary.json")
+  .then(res => res.json())
+  .then(data => {
+    diaryEntries = data;
+    populateCropFilter(data);
+    renderTable(data);
+  });
+
+function populateCropFilter(entries) {
+  const crops = [...new Set(entries.map(e => e.crop))];
+  const filter = document.getElementById("cropFilter");
+
+  crops.forEach(crop => {
+    const opt = document.createElement("option");
+    opt.value = crop;
+    opt.textContent = crop;
+    filter.appendChild(opt);
+  });
+}
+
+function renderTable(entries) {
+  const body = document.getElementById("diaryBody");
+  body.innerHTML = "";
+
+  entries.forEach(e => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${e.date}</td>
+      <td>${seasonIcon(e.season)}</td>
+      <td>${e.crop}</td>
+      <td>${stateBadge(e.state)}</td>
+      <td>${pestIcons(e.pests)}</td>
+      <td>${e.comment}</td>
+    `;
+
+    body.appendChild(row);
+  });
+}
+
+function seasonIcon(season) {
+  const map = {
+    winter: "❄",
+    spring: "🌱",
+    summer: "☀",
+    autumn: "🍂"
+  };
+  return map[season] || "";
+}
+
+function stateBadge(state) {
+  const map = {
+    seed: "🌱 Seed",
+    direct_sow: "🌾 Direct Sow",
+    seedling: "🌿 Seedling",
+    established: "🌳 Established",
+    harvest: "🥕 Harvest"
+  };
+  return map[state] || state;
+}
+
+function pestIcons(pests) {
+  if (!pests.length) return "—";
+
+  const map = {
+    slugs: "🐌",
+    aphids: "🐜",
+    caterpillars: "🐛"
+  };
+
+  return pests.map(p => map[p] || p).join(" ");
+}
+
+document.getElementById("cropFilter").addEventListener("change", e => {
+  const crop = e.target.value;
+
+  const filtered = crop === "all"
+    ? diaryEntries
+    : diaryEntries.filter(d => d.crop === crop);
+
+  renderTable(filtered);
+});
+
+document.getElementById("sortNewest").addEventListener("click", () => {
+  const sorted = [...diaryEntries]
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  renderTable(sorted);
+});
+</script>
+
+    
 <script src="willie.js"></script>
 
 </body>
 </html>
+
 
