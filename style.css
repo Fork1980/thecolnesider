@@ -874,6 +874,54 @@ a:hover {
     color: #555;
     font-style: italic;
 }
+/* =========================
+   Diary solution for phones
+   ========================= */
+
+@media (max-width: 768px) {
+
+    .diary-table,
+    .diary-table thead,
+    .diary-table tbody,
+    .diary-table th,
+    .diary-table td,
+    .diary-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .diary-table thead {
+        display: none; /* hide headers */
+    }
+
+    .diary-table tr {
+        background: #fff;
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .diary-table td {
+        border: none;
+        padding: 0.3rem 0;
+    }
+
+    .diary-table td::before {
+        font-weight: bold;
+        display: inline-block;
+        width: 90px;
+    }
+
+    .diary-table td:nth-child(1)::before { content: "Date: "; }
+    .diary-table td:nth-child(2)::before { content: "Season: "; }
+    .diary-table td:nth-child(3)::before { content: "Crop: "; }
+    .diary-table td:nth-child(4)::before { content: "State: "; }
+    .diary-table td:nth-child(5)::before { content: "Pests: "; }
+    .diary-table td:nth-child(6)::before { content: "Notes: "; }
+
+}
+
 
 
 
