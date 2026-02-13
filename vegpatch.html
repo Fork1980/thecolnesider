@@ -139,6 +139,7 @@
 
 <script>
 let diaryEntries = [];
+let newestFirst = true;
 
 fetch("data/vegpatch-diary.json")
   .then(res => res.json())
@@ -229,20 +230,24 @@ document.getElementById("sortNewest").addEventListener("click", () => {
 
   const sorted = [...diaryEntries].sort((a, b) =>
     newestFirst
-      ? new Date(b.date) - new Date(a.date)  // Newlands toggle solution
-      : new Date(a.date) - new Date(b.date)  // ahh this makes it work! 
+      ? new Date(b.date) - new Date(a.date)
+      : new Date(a.date) - new Date(b.date)
   );
 
   renderTable(sorted);
-});
 
+  const btn = document.getElementById("sortNewest");
+  btn.textContent = newestFirst ? "Newest First" : "Oldest First";
+});
 </script>
+
 
     
 <script src="willie.js"></script>
 
 </body>
 </html>
+
 
 
 
