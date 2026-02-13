@@ -51,6 +51,70 @@
     "state": "seed",
     "pests": [],
     "comment": "Bedfordshire Champ Second sowing - same conditions as first"
+  },
+
+  {
+    "date": "2026-02-08",
+    "season": "winter",
+    "crop": "Potato",
+    "state": "seed",
+    "pests": [],
+    "comment": "Chitting Maris Piper ~2kg"
+  }
+]
+[
+  {
+    "date": "2026-01-25",
+    "season": "winter",
+    "crop": "Leeks",
+    "state": "seed",
+    "pests": [],
+    "comment": "First sowing. Sowed quite densely, left on window sill. £2.89 Mr. Fothergill's 'Oh Sow Simple - Musselburgh' 150 seeds. John Innes seed compost"
+  },
+
+  {
+    "date": "2026-01-25",
+    "season": "winter",
+    "crop": "Onion",
+    "state": "seed",
+    "pests": [],
+    "comment": "Bedfordshire Champ. £0.89 Thompson Morgan 250 seeds. Sown in cells, 6 seeds per cell. John Innes seed compost"
+  },
+
+  {
+    "date": "2026-01-25",
+    "season": "winter",
+    "crop": "Red Onion",
+    "state": "seed",
+    "pests": [],
+    "comment": "Brunswick red onion, sown same as Bedfordshire Champ. £2.99 200 seeds - The Seed Shed. John Innes seed compost [£12.99/35l local shop]"
+  },
+
+  {
+    "date": "2026-02-07",
+    "season": "winter",
+    "crop": "Leek",
+    "state": "seed",
+    "pests": [],
+    "comment": "Second sowing - same conditions as first"
+  },
+
+  {
+    "date": "2026-02-07",
+    "season": "winter",
+    "crop": "Onion",
+    "state": "seed",
+    "pests": [],
+    "comment": "Brunswick Red -No germination - tossed out"
+  },
+
+  {
+    "date": "2026-02-07",
+    "season": "winter",
+    "crop": "Onion",
+    "state": "seed",
+    "pests": [],
+    "comment": "Bedfordshire Champ Second sowing - same conditions as first"
   }
    {
     "date": "2026-02-08",
