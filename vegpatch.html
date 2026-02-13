@@ -224,11 +224,18 @@ document.getElementById("cropFilter").addEventListener("change", e => {
 });
 
 document.getElementById("sortNewest").addEventListener("click", () => {
-  const sorted = [...diaryEntries]
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  newestFirst = !newestFirst;
+
+  const sorted = [...diaryEntries].sort((a, b) =>
+    newestFirst
+      ? new Date(b.date) - new Date(a.date)  // Newlands toggle solution
+      : new Date(a.date) - new Date(b.date)  // ahh this makes it work! 
+  );
 
   renderTable(sorted);
 });
+
 </script>
 
     
@@ -236,6 +243,7 @@ document.getElementById("sortNewest").addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
