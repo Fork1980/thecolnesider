@@ -38,18 +38,26 @@
   {
     "date": "2026-02-07",
     "season": "winter",
-    "crop": "Brunswick red",
+    "crop": "Onion",
     "state": "seed",
     "pests": [],
-    "comment": "No germination - tossed out"
+    "comment": "Brunswick Red -No germination - tossed out"
   },
 
   {
     "date": "2026-02-07",
     "season": "winter",
-    "crop": "Bedfordshire Champ",
+    "crop": "Onion",
     "state": "seed",
     "pests": [],
-    "comment": "Second sowing - same conditions as first"
+    "comment": "Bedfordshire Champ Second sowing - same conditions as first"
   }
+   {
+    "date": "2026-02-08",
+    "season": "winter",
+    "crop": "Potato",
+    "state": "seed",
+    "pests": [],
+    "comment": "Chitting Maris Piper ~2kg"
+  },
 ]
