@@ -41,7 +41,7 @@
     "crop": "Onion",
     "state": "seed",
     "pests": [],
-    "comment": "Brunswick Red -No germination - tossed out"
+    "comment": "Brunswick Red - No germination - tossed out"
   },
 
   {
@@ -60,5 +60,32 @@
     "state": "seed",
     "pests": [],
     "comment": "Chitting Maris Piper ~2kg"
+  },
+
+  {
+    "date": "2026-02-14",
+    "season": "winter",
+    "crop": "Onion",
+    "state": "seedling",
+    "pests": [],
+    "comment": "Bedfordshire Champ *first* sowing: became 'leggy' on w/sill. Trimmed off ~4cm - moved to coldframe"
+  },
+
+  {
+    "date": "2026-02-14",
+    "season": "winter",
+    "crop": "Leek",
+    "state": "seedling",
+    "pests": [],
+    "comment": "Leeks *first* sowing: moved to coldframe"
+  },
+
+  {
+    "date": "2026-02-17",
+    "season": "winter",
+    "crop": "Leek",
+    "state": "seed",
+    "pests": [],
+    "comment": "Leeks *third* sowing: placed on w/sill"
   }
 ]
