@@ -108,7 +108,7 @@ const captions = {
         "Willie-Joe is feeling festive." :
         "Willie-Joe loves winter.",
 
-    spring: "Willie-Joe tolerates the drizzle - but he can start planting!.",
+    spring: "Willie-Joe tolerates the drizzle.",
     summer: "Willie-Joe does not like heat. He's off for a swim.",
     autumn: "Willie-Joe approves of autumn."
 };
@@ -132,4 +132,5 @@ widget.classList.remove("winter-mode", "spring-mode");
 
 if (season === "winter") widget.classList.add("winter-mode");
 if (season === "spring") widget.classList.add("spring-mode");
+
 
