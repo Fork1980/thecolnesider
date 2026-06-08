@@ -45,10 +45,6 @@
         <h2 style="text-align: center; margin: 0.2rem 0;">Projects</h2>
     </div>
 
-    <!-- ==================================================
-         Project: Raleigh Nova
-         ================================================== -->
-
     <details class="intro-box">
         <summary><strong>Raleigh Nova (recommission)</strong></summary>
 
@@ -153,10 +149,6 @@
 
     </details>
 
-    <!-- ==================================================
-         Project: SIP
-         ================================================== -->
-
     <details class="intro-box">
         <summary><strong>Sub-Irrigation Planter (SIP)</strong></summary>
 
@@ -180,19 +172,19 @@
         <p><strong>I made these planters using the following materials:</strong></p>
 
         <ul>
-            <li>Pressure-treated 2×6 (38 × 140&nbsp;mm) timber</li>
-            <li>Pressure-treated 45 × 45&nbsp;mm timber battens</li>
+            <li>Pressure-treated 2×6 (38 × 140 mm) timber</li>
+            <li>Pressure-treated 45 × 45 mm timber battens</li>
             <li>Polythene sheet liner</li>
-            <li>100&nbsp;mm perforated drainage pipe</li>
+            <li>100 mm perforated drainage pipe</li>
             <li>Aluminium tubing for the filler pipe</li>
-            <li>6&nbsp;mm flexible overflow hose</li>
+            <li>6 mm flexible overflow hose</li>
         </ul>
 
         <div class="project-gallery">
-            <figure><img src="images/Projects/Lengths1.jpg" alt="Timber lengths"><figcaption>2.4&nbsp;m lengths of 2×6 timber</figcaption></figure>
+            <figure><img src="images/Projects/Lengths1.jpg" alt="Timber lengths"><figcaption>2.4 m lengths of 2×6 timber</figcaption></figure>
             <figure><img src="images/Projects/Grain_dir2.jpg" alt="End grain"><figcaption>End grain rotated to reduce warping</figcaption></figure>
-            <figure><img src="images/Projects/side_spacer2.jpg" alt="Expansion gap"><figcaption>6&nbsp;mm expansion gap</figcaption></figure>
-            <figure><img src="images/Projects/Lengths4.jpg" alt="Internal joists"><figcaption>Internal joists at ~300&nbsp;mm centres</figcaption></figure>
+            <figure><img src="images/Projects/side_spacer2.jpg" alt="Expansion gap"><figcaption>6 mm expansion gap</figcaption></figure>
+            <figure><img src="images/Projects/Lengths4.jpg" alt="Internal joists"><figcaption>Internal joists at ~300 mm centres</figcaption></figure>
         </div>
 
         <div class="project-gallery">
@@ -213,7 +205,6 @@
             <figure><img src="images/Projects/lengths12.jpg" alt="Finished container"><figcaption>Finished container</figcaption></figure>
         </div>
 
-        <!-- Calculator comes immediately after SIP gallery -->
         <section class="sip-calculator">
 
             <h3>SIP planter capacity calculator</h3>
@@ -221,7 +212,7 @@
             <p class="sip-intro">
                 Enter the internal dimensions of the planter.
                 The base reservoir is formed by a single layer of slotted
-                <strong>100&nbsp;mm diameter pipes</strong> laid side-by-side.
+                <strong>100 mm diameter pipes</strong> laid side-by-side.
                 The overflow limits the maximum water level within these pipes.
             </p>
 
@@ -271,7 +262,7 @@
 
             <p class="sip-assumptions">
                 Water capacity is calculated from the internal volume of the slotted pipes that make the reservoir.
-                Soil weight assumes a typical wet garden-soil bulk density of approximately 1.4&nbsp;kg per litre.
+                Soil weight assumes a typical wet garden-soil bulk density of approximately 1.4 kg per litre.
                 Initial filling assumes the overflow outlet can discharge water at least as quickly as it is added.
             </p>
 
@@ -282,10 +273,6 @@
         </section>
 
     </details>
-
-    <!-- =====================
-         Project: Garden Gate
-         ===================== -->
 
     <details class="intro-box">
         <summary><strong>Making a garden gate</strong></summary>
@@ -325,10 +312,6 @@
 
     </details>
 
-    <!-- =====================
-         Project: Go-kart
-         ===================== -->
-
     <details class="intro-box">
         <summary><strong>Go-kart build</strong></summary>
 
@@ -367,10 +350,6 @@
 
     </details>
 
-    <!-- =====================
-         Project: Christmas
-         ===================== -->
-
     <details class="intro-box">
         <summary><strong>Christmas projects</strong></summary>
 
@@ -393,9 +372,9 @@
 </main>
 
 <script>
-const soilDensity = 1.4;
+const soilDensity = 1.4; // kg per litre
 
-// pipe assumptions
+// pipe assumptions (Fixed at 100 mm diameter)
 const PIPE_DIAMETER = 100; // mm
 const PIPE_RADIUS_M = 0.05; // metres
 const PIPE_AREA = Math.PI * PIPE_RADIUS_M * PIPE_RADIUS_M;
@@ -432,49 +411,48 @@ function calculateSIP() {
     let H = Number(heightInput.value) * m;
     let O = Number(overflowInput.value) * m;
 
-    // clamp dimensions
+    // Clamp box dimensions to layout parameters
     L = clamp(L, 1, MAX_LENGTH);
     W = clamp(W, 1, MAX_WIDTH);
     H = clamp(H, 1, MAX_HEIGHT);
 
-    // overflow height is informational only here
-    O = clamp(O, 1, H - 1);
+    // Overflow height cannot exceed the 100mm pipe threshold or the overall planter depth
+    const maxOverflowPossible = Math.min(H, PIPE_DIAMETER);
+    O = clamp(O, 0, maxOverflowPossible);
 
-    // write back corrected values
+    // Sync normalized values back out to the UI fields
     lengthInput.value = L / m;
     widthInput.value  = W / m;
     heightInput.value = H / m;
     overflowInput.value = O / m;
 
-    // number of pipes that fit side-by-side
+    // Determine whole numbers of structural pipes running side-by-side across the floor
     const pipeCount = Math.floor(W / PIPE_DIAMETER);
-
-    // reservoir volume from pipe geometry
     const pipeLengthM = L / 1000;
 
-    // effective fill height inside pipe (cannot exceed pipe diameter)
-    const effectiveFill = Math.min(O, PIPE_DIAMETER);
+    // Determine absolute structural volume of the pipe grid (in Litres)
+    const maxPipeVolumeLitres = pipeCount * PIPE_AREA * pipeLengthM * 1000;
 
-    // fraction of pipe cross-section filled (linear approximation)
-    const fillFraction = effectiveFill / PIPE_DIAMETER;
+    // Linearly approximate the volume profile filling up inside the sub-reservoir pipes
+    const fillFraction = O / PIPE_DIAMETER;
+    const waterVolume = maxPipeVolumeLitres * fillFraction;
 
-    // water volume based on partially filled pipes
-    const waterVolume =
-        pipeCount * PIPE_AREA * pipeLengthM * fillFraction * 1000;
+    // Convert total internal structure box volume directly to Litres
+    const totalBoxCapacityLitres = (L * W * H) / 1_000_000;
 
-    // total box volume
-    const totalVolume = (L * W * H) / 1_000_000;
+    // Soil wraps entirely around and completely packs the voids where water isn't present
+    const soilVolume = totalBoxCapacityLitres - waterVolume;
 
-    // soil volume is box volume minus pipe voids
-    const soilVolume = totalVolume - waterVolume;
-
-    const totalWeight = waterVolume + (soilVolume * soilDensity);
+    // Weights: Water scales at 1.0 kg/L, Soil profile targets 1.4 kg/L
+    const waterWeight = waterVolume * 1.0;
+    const soilWeight = soilVolume * soilDensity;
+    const totalWeight = waterWeight + soilWeight;
 
     sipResults.innerHTML = `
         <p><strong>Number of reservoir pipes:</strong> ${pipeCount}</p>
-        <p><strong>Reservoir pipes:</strong> ${pipeCount} × ${pipeLengthM.toFixed(2)} m (100 mm diameter)</p>
-        <p><strong>Water capacity (pipe reservoir):</strong> ${waterVolume.toFixed(1)} litres</p>
-        <p><strong>Soil required:</strong> ${soilVolume.toFixed(1)} litres</p>
+        <p><strong>Reservoir pipes layout:</strong> ${pipeCount} × ${pipeLengthM.toFixed(2)} m (100 mm diameter)</p>
+        <p><strong>Water reservoir capacity:</strong> ${waterVolume.toFixed(1)} litres</p>
+        <p><strong>Soil required (approx):</strong> ${soilVolume.toFixed(1)} litres</p>
         <p><strong>Total weight (wet):</strong> ${totalWeight.toFixed(0)} kg</p>
     `;
 }
@@ -506,7 +484,3 @@ function resetSIP() {
 
 </body>
 </html>
-
-
-
-
