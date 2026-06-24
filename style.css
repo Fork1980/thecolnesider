@@ -977,7 +977,154 @@ main {
     text-align: center;
     line-height: 1.4;
 }
+/* =====================================================
+   POSTBOX PAGE
+   ===================================================== */
 
+.postbox-page {
+    padding: 1.2rem 1rem 2.5rem;
+}
+
+/* Header intro */
+
+.postbox-intro {
+    max-width: 620px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+}
+
+.postbox-intro p {
+    text-align: center;
+    max-width: 55ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Optional small Postbox image */
+
+.postbox-image {
+    max-width: 130px;
+    margin: 1rem auto 1.2rem;
+    border-radius: 10px;
+}
+
+/* Decorative divider */
+
+.postbox-divider {
+    max-width: 720px;
+    margin: 2.2rem auto;
+    border: 0;
+    border-top: 1px solid #c9c1b4;
+}
+
+/* Post list */
+
+.post-list {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* Individual posts */
+
+.post-entry {
+    border-top: 1px solid #c9c1b4;
+    padding: 1.6rem 0;
+}
+
+.post-entry:first-child {
+    border-top: none;
+}
+
+.post-entry h2 {
+    text-align: left;
+    margin: 0.15rem 0 0.55rem;
+    line-height: 1.2;
+}
+
+.post-entry p {
+    max-width: 65ch;
+    text-align: left;
+}
+
+/* Date and tags */
+
+.post-date {
+    font-size: 0.92rem;
+    font-weight: bold;
+    opacity: 0.75;
+    margin: 0 0 0.2rem;
+}
+
+.post-tags {
+    font-size: 0.88rem;
+    font-style: italic;
+    opacity: 0.8;
+    margin-top: 0.8rem;
+}
+
+/* Optional image inside a post */
+
+.post-entry.with-image {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 1.4rem;
+    align-items: start;
+}
+
+.post-entry.with-image img {
+    width: 220px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 10px;
+}
+
+/* Archive */
+
+.postbox-archive {
+    max-width: 720px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.2rem;
+    border-top: 1px solid #c9c1b4;
+}
+
+.postbox-archive h2 {
+    text-align: left;
+    margin-top: 0;
+}
+
+.postbox-archive details {
+    margin: 0.4rem 0;
+}
+
+.postbox-archive summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.postbox-archive ul {
+    list-style: none;
+    padding-left: 1.2rem;
+    margin-top: 0.4rem;
+}
+
+.postbox-archive li {
+    margin: 0.35rem 0;
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+    .post-entry.with-image {
+        display: block;
+    }
+
+    .post-entry.with-image img {
+        width: 100%;
+        max-width: 360px;
+        margin: 1rem auto 0;
+    }
+}
 
 
 
