@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postbox - The Colnesider</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="site-title">THE COLNESIDER</div>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="workshop.html">Workshop</a></li>
+                <li><a href="vegpatch.html">VegPatch</a></li>
+                <li><a href="travel.html">Travel</a></li>
+                <li><a class="active" href="postbox.html">Postbox</a></li>
+                <li><a href="guestbook.html">Guest Book</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main class="postbox-page">
+
+    <section class="content">
+
+        <div class="landing-intro">
+            <h1>Postbox</h1>
+
+            <p class="subtitle">
+                short updates from around The Colnesider
+            </p>
+        </div>
+
+        <div class="intro-box postbox-intro">
+            <p>
+                Bits and pieces from the workshop, the veg patch, the coast, my travels,
+                my studies and whatever else happens to be occupying my mind.
+            </p>
+
+            <p>
+                Not quite a blog. More of a place to post the things I might once have put on Facebook.
+            </p>
+        </div>
+
+        <section class="post-list">
+
+            <article class="post-entry">
+                <p class="post-date">24 June 2026</p>
+                <h2>Solar-powered websites</h2>
+
+                <p>
+                    Discovered Low-tech Magazine today. Fascinating idea. It makes me wonder
+                    how much of the modern web is actually necessary.
+                </p>
+
+                <p class="post-tags">#website #lowtech #ideas</p>
+            </article>
+
+            <article class="post-entry">
+                <p class="post-date">23 June 2026</p>
+                <h2>Garden visitors</h2>
+
+                <p>
+                    The sparrows are still getting through two fat balls a day. Lots of juveniles
+                    about this year and still plenty of natural foraging under the shrubs.
+                </p>
+
+                <p class="post-tags">#garden #birds #wildlife</p>
+            </article>
+
+        </section>
+
+        <section class="postbox-archive">
+            <h2>Archive</h2>
+
+            <details open>
+                <summary>2026</summary>
+                <ul>
+                    <li><a href="postbox.html">June</a></li>
+                </ul>
+            </details>
+        </section>
+
+    </section>
+
+</main>
+
+<footer class="landing-footer">
+    © Paul Newland 2026 · 
+    <a href="#" id="privacyLink">Privacy</a>
+</footer>
+
+<div id="privacyText" class="privacy-text">
+    Nice to know 👍 This site is fully static (simple pages, no database, no backend systems).
+    No personal visitor data is collected, viewed, or stored — including IP addresses.
+    Basic technical logging may occur at the hosting-provider level for security and performance.
+    That’s standard practice and not something I access or manage.
+    Guest book messages are voluntary and handled via Formspree.
+</div>
+
+<script>
+const privacyLink = document.getElementById("privacyLink");
+const privacyText = document.getElementById("privacyText");
+
+privacyLink.onclick = function(e) {
+    e.preventDefault();
+
+    if (privacyText.style.display === "block") {
+        privacyText.style.display = "none";
+    } else {
+        privacyText.style.display = "block";
+    }
+};
+</script>
+
+</body>
+</html>
