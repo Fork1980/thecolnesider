@@ -978,36 +978,30 @@ main {
     line-height: 1.4;
 }
 /* =====================================================
-   POSTBOX PAGE - CLEAN VERSION
+   BLOG PAGE
    ===================================================== */
 
-.postbox-page {
+.blog-page {
     padding: 1.2rem 1rem 2.5rem;
 }
 
 /* Main centred column */
 
-.postbox-page .content {
+.blog-page .content {
     width: min(92%, 720px);
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto;
 }
 
 /* Header */
 
-.postbox-page .landing-intro {
-    width: min(92%, 620px);
-    margin: 0 auto;
-    text-align: center;
-}
-
-.postbox-intro {
+.blog-page .landing-intro,
+.blog-intro {
     width: min(92%, 620px);
     margin: 0 auto 2.4rem;
     text-align: center;
 }
 
-.postbox-intro p {
+.blog-intro p {
     max-width: 65ch;
     margin: 0 auto 1rem;
     text-align: justify;
@@ -1015,12 +1009,13 @@ main {
     hyphens: auto;
 }
 
-/* Small postbox image */
+/* Small header image */
 
-.postbox-image {
+.blog-image {
     max-width: 110px;
     margin: 1rem auto 1.2rem;
     border-radius: 10px;
+    display: block;
 }
 
 /* Posts */
@@ -1044,27 +1039,26 @@ main {
 }
 
 .post-entry h2 {
-    text-align: left;
     margin: 0.1rem 0 0.5rem;
     line-height: 1.2;
+    text-align: left;
 }
 
 .post-entry p {
     max-width: 65ch;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
     text-align: left;
 }
 
 .post-tags {
+    margin-top: 0.8rem;
     font-size: 0.88rem;
     font-style: italic;
-    opacity: 0.85;
     color: #2f4f4f;
-    margin-top: 0.8rem;
+    opacity: 0.85;
 }
 
-/* Optional post image */
+/* Optional image inside a post */
 
 .post-image {
     max-width: 420px;
@@ -1074,52 +1068,47 @@ main {
 
 /* Archive */
 
-.postbox-archive {
+.blog-archive {
     width: 100%;
     margin: 2.5rem auto 0;
     padding-top: 1.2rem;
 }
 
-.postbox-archive h2 {
-    text-align: left;
+.blog-archive h2 {
     margin-top: 0;
+    text-align: left;
 }
 
-.postbox-archive details {
+.blog-archive details {
     margin: 0.5rem 0;
 }
 
-.postbox-archive summary {
+.blog-archive summary {
     cursor: pointer;
     font-weight: bold;
 }
 
-.postbox-archive ul {
+.blog-archive ul {
     list-style: none;
     padding-left: 1.2rem;
     margin-top: 0.4rem;
 }
 
-.postbox-archive li {
+.blog-archive li {
     margin: 0.35rem 0;
 }
 
-/* Phone view */
+/* Mobile */
 
 @media (max-width: 768px) {
-    .postbox-page {
+
+    .blog-page {
         padding-left: 1rem;
         padding-right: 1rem;
     }
 
-    .postbox-page .content {
+    .blog-page .content {
         width: 92%;
-    }
-
-    .post-entry h2,
-    .post-entry p,
-    .postbox-archive h2 {
-        text-align: left;
     }
 
     .post-image {
@@ -1127,4 +1116,5 @@ main {
         margin-left: auto;
         margin-right: auto;
     }
+
 }
