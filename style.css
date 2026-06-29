@@ -1118,3 +1118,51 @@ main {
     }
 
 }
+/* ======================================================
+   THE COLNESIDER - LOGO GLINT EFFECT
+   ====================================================== */
+
+.logo-shine {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.logo-shine::after {
+    content: "";
+    position: absolute;
+    inset: -30%;
+
+    background: linear-gradient(
+        115deg,
+        transparent 42%,
+        rgba(255,255,255,0.15) 47%,
+        rgba(255,255,255,0.95) 50%,
+        rgba(255,255,255,0.15) 53%,
+        transparent 58%
+    );
+
+    filter: blur(2px);
+    transform: translateX(-170%) rotate(15deg);
+
+    pointer-events: none;
+
+    animation: logoGlint 30s linear infinite;
+}
+
+@keyframes logoGlint {
+
+    0%, 96% {
+        transform: translateX(-170%) rotate(15deg);
+        opacity: 0;
+    }
+
+    97% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(170%) rotate(15deg);
+        opacity: 1;
+    }
+}
