@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,29 +32,62 @@
 
 <main class="blog-page">
 
-    <section class="content">
+<section class="content">
 
-        <div class="landing-intro">
-            <h1>Blog</h1>
-        </div>
+<div class="landing-intro">
+    <h1>Blog</h1>
+</div>
 
-        <div class="intro-box blog-intro">
-            <p>
-                Here's where you'll find a few things that would probably have ended up on Facebook,
-                but now have a home here instead. I tend to use Facebook less and less these days.
-            </p>
-        </div>
+<!-- Willie Joe Widget -->
+<div class="year-widget">
 
-        <div class="blog-controls">
-            <label for="sortPosts"><strong>Sort:</strong></label>
+    <div class="month-row">
+        <div class="month-box" id="monthBox">🌱 March</div>
+        <div class="season-icon" id="seasonIcon">🌱</div>
+    </div>
 
-            <select id="sortPosts">
-                <option value="newest">Newest first</option>
-                <option value="oldest">Oldest first</option>
-            </select>
-        </div>
+    <div class="year-line">
 
-        <section class="post-list" id="postList">
+        <div class="snow" id="snow"></div>
+        <div class="drizzle" id="drizzle"></div>
+
+        <img id="willie"
+             class="willie"
+             src="images/VegPatch/spring_wj.jpg"
+             alt="Willie Joe walking">
+
+    </div>
+
+    <div class="season-caption" id="seasonCaption">
+        Willie Joe isn’t fussed about spring.
+    </div>
+
+</div>
+
+<div class="willie-intro">
+    <p>
+        Meet <strong>Willie Joe</strong>, The Colnesider's resident sprite.
+        He wanders through the seasons while keeping an eye on the latest happenings around the website.
+    </p>
+</div>
+
+<div class="intro-box blog-intro">
+    <p>
+        Here's where you'll find a few things that would probably have ended up on Facebook,
+        but now have a home here instead. I tend to use Facebook less and less these days.
+    </p>
+</div>
+
+<div class="blog-controls">
+    <label for="sortPosts"><strong>Sort:</strong></label>
+
+    <select id="sortPosts">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+    </select>
+</div>
+
+  <section class="post-list" id="postList">
              <article class="post-entry" data-date="2026-06-29">
                 <p class="post-date">29 June 2026</p>
                 <h2>Potatoes!</h2>
@@ -226,6 +260,10 @@
 </div>
 
 <script src="blog.js"></script>
+<script src="willie.js"></script>
 
 </body>
 </html>
+
+
+
