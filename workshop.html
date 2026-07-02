@@ -49,7 +49,7 @@
         <summary><strong>Jewellery Box with Resin Lid</strong></summary>
 
         <figure class="project-hero">
-            <img src="images/woodwork/jewellery-box/box1FIN.jpg" alt="Finished walnut jewellery box with turquoise resin lid">
+            <img src="images/woodwork/Jewellery_Box/box1FIN.jpg" alt="Finished walnut jewellery box with turquoise resin lid">
         </figure>
 
         <p>
@@ -70,17 +70,17 @@
 
         <div class="project-gallery">
             <figure>
-                <img src="images/woodwork/jewellery-box/box1FIN.jpg" alt="Finished jewellery box outdoors">
+                <img src="images/woodwork/Jewellery_Box/box1FIN.jpg" alt="Finished jewellery box outdoors">
                 <figcaption>Finished box with the resin lid panel complete.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box2insert.jpg" alt="Open jewellery box showing mirror and tray inserts">
+                <img src="images/woodwork/Jewellery_Box/box2insert.jpg" alt="Open jewellery box showing mirror and tray inserts">
                 <figcaption>Mirror in the lid and removable tray inserts inside.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box3varn.jpg" alt="Finished jewellery box in the workshop">
+                <img src="images/woodwork/Jewellery_Box/box3varn.jpg" alt="Finished jewellery box in the workshop">
                 <figcaption>Another view of the finished box back in the workshop.</figcaption>
             </figure>
         </div>
@@ -96,22 +96,22 @@
 
         <div class="project-gallery">
             <figure>
-                <img src="images/woodwork/jewellery-box/resaw.jpg" alt="Prepared timber stock for the jewellery box">
+                <img src="images/woodwork/Jewellery_Box/resaw.jpg" alt="Prepared timber stock for the jewellery box">
                 <figcaption>Prepared stock for the box sides and lid components.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/rawstoc.jpg" alt="Timber stock close-up">
+                <img src="images/woodwork/Jewellery_Box/rawstoc.jpg" alt="Timber stock close-up">
                 <figcaption>Timber selected and machined down ready for sizing.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box7rebate.jpg" alt="Tray insert components and rebates">
+                <img src="images/woodwork/Jewellery_Box/box7rebate.jpg" alt="Tray insert components and rebates">
                 <figcaption>Tray insert components machined and test fitted.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box5test.jpg" alt="Corner joint close-up during fitting">
+                <img src="images/woodwork/Jewellery_Box/box5test.jpg" alt="Corner joint close-up during fitting">
                 <figcaption>Test fitting the corner joints before final assembly.</figcaption>
             </figure>
         </div>
@@ -127,12 +127,12 @@
 
         <div class="project-gallery">
             <figure>
-                <img src="images/woodwork/jewellery-box/box4precast.jpg" alt="Jewellery box lid with routed recess before resin pour">
+                <img src="images/woodwork/Jewellery_Box/box4precast.jpg" alt="Jewellery box lid with routed recess before resin pour">
                 <figcaption>Lid recess routed out before the resin pour.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box3varn.jpg" alt="Finished resin lid panel close-up">
+                <img src="images/woodwork/Jewellery_Box/box3varn.jpg" alt="Finished resin lid panel close-up">
                 <figcaption>The finished resin panel after sanding and finishing.</figcaption>
             </figure>
         </div>
@@ -148,12 +148,12 @@
 
         <div class="project-gallery">
             <figure>
-                <img src="images/woodwork/jewellery-box/box6parts.jpg" alt="Jewellery box components laid out before assembly">
+                <img src="images/woodwork/Jewellery_Box/box6parts.jpg" alt="Jewellery box components laid out before assembly">
                 <figcaption>All the main parts laid out before final assembly.</figcaption>
             </figure>
 
             <figure>
-                <img src="images/woodwork/jewellery-box/box2insert.jpg" alt="Open jewellery box showing compartments">
+                <img src="images/woodwork/Jewellery_Box/box2insert.jpg" alt="Open jewellery box showing compartments">
                 <figcaption>Lift-out trays fitted into the finished box.</figcaption>
             </figure>
         </div>
@@ -489,12 +489,10 @@
 <script>
 const soilDensity = 1.4; // kg per litre
 
-// pipe assumptions (Fixed at 100 mm diameter)
 const PIPE_DIAMETER = 100; // mm
 const PIPE_RADIUS_M = 0.05; // metres
 const PIPE_AREA = Math.PI * PIPE_RADIUS_M * PIPE_RADIUS_M;
 
-// realistic hard caps (mm)
 const MAX_LENGTH = 2500;
 const MAX_WIDTH  = 1000;
 const MAX_HEIGHT = 800;
@@ -526,39 +524,30 @@ function calculateSIP() {
     let H = Number(heightInput.value) * m;
     let O = Number(overflowInput.value) * m;
 
-    // Clamp box dimensions to layout parameters
     L = clamp(L, 1, MAX_LENGTH);
     W = clamp(W, 1, MAX_WIDTH);
     H = clamp(H, 1, MAX_HEIGHT);
 
-    // Overflow height cannot exceed the 100mm pipe threshold or the overall planter depth
     const maxOverflowPossible = Math.min(H, PIPE_DIAMETER);
     O = clamp(O, 0, maxOverflowPossible);
 
-    // Sync normalized values back out to the UI fields
     lengthInput.value = L / m;
     widthInput.value  = W / m;
     heightInput.value = H / m;
     overflowInput.value = O / m;
 
-    // Determine whole numbers of structural pipes running side-by-side across the floor
     const pipeCount = Math.floor(W / PIPE_DIAMETER);
     const pipeLengthM = L / 1000;
 
-    // Determine absolute structural volume of the pipe grid (in Litres)
     const maxPipeVolumeLitres = pipeCount * PIPE_AREA * pipeLengthM * 1000;
 
-    // Linearly approximate the volume profile filling up inside the sub-reservoir pipes
     const fillFraction = O / PIPE_DIAMETER;
     const waterVolume = maxPipeVolumeLitres * fillFraction;
 
-    // Convert total internal structure box volume directly to Litres
-    const totalBoxCapacityLitres = (L * W * H) / 1_000_000;
+    const totalBoxCapacityLitres = (L * W * H) / 1000000;
 
-    // Soil wraps entirely around and completely packs the voids where water isn't present
     const soilVolume = totalBoxCapacityLitres - waterVolume;
 
-    // Weights: Water scales at 1.0 kg/L, Soil profile targets 1.4 kg/L
     const waterWeight = waterVolume * 1.0;
     const soilWeight = soilVolume * soilDensity;
     const totalWeight = waterWeight + soilWeight;
