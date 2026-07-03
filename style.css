@@ -1122,11 +1122,21 @@ main {
     }
 
 }
+.landing-bottom {
+    max-width: 900px;
+    margin: 2rem auto 1.5rem;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.landing-meta {
+    font-size: 0.85rem;
+    color: #777;
+}
+
 .privacy-text {
     display: none;
-    max-width: 700px;
-    margin: 0 auto 1rem;
-    padding: 0 1rem;
+    margin: 0 0 0.75rem;
     font-size: 0.85rem;
     line-height: 1.5;
     color: #666;
