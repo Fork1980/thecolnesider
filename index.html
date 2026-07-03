@@ -101,6 +101,8 @@ privacyLink.onclick = function(e) {
         privacyText.style.display = "none";
     } else {
         privacyText.style.display = "block";
+		privacyText.ScrollIntoView({behavior:
+			"smooth", block: "start"});
     }
 };
 </script>
