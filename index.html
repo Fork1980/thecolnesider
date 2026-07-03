@@ -76,17 +76,19 @@
     </section>
 
 </main>
-	<div id="privacyText" class="privacy-text">
-    Nice to know 👍 This is a simple static website (simple pages, no database, no backend systems).
-    No visitor data is collected, viewed, or stored — including IP addresses.
-    Guest book messages are voluntary and handled via Formspree.
+	</main>
+
+<div class="landing-bottom">
+    <div id="privacyText" class="privacy-text">
+        Nice to know 👍 This is a simple static website — no database, no backend systems, and no sneaky tracking set up by me.
+        Guest book messages are voluntary and handled via Formspree.
+    </div>
+
+    <div class="landing-meta">
+        <span>© Paul Newland 2026</span> ·
+        <button id="privacyLink" class="privacy-button">Privacy</button>
+    </div>
 </div>
-<footer class="landing-footer">
-    © Paul Newland 2026 · 
-    <button id="privacyLink" class="privacy-button">Privacy</button>
-</footer>
-
-
 
 <script>
 const privacyLink = document.getElementById("privacyLink");
@@ -99,13 +101,14 @@ privacyLink.onclick = function() {
     if (privacyText.style.display === "block") {
         privacyText.scrollIntoView({
             behavior: "smooth",
-            block: "center"
+            block: "nearest"
         });
     }
 };
 </script>
 
-
+</body>
+</html>
 
 
 
