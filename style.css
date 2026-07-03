@@ -243,6 +243,10 @@ details.intro-box > summary::after {
     top: 50%;
     transform: translateY(-50%) rotate(0deg);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1.4rem;   /* makes arrow bigger */
+    line-height: 1;
+    font-weight: 700;
+
 }
 
 /* Rotated state */
