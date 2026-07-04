@@ -1,44 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Colnesider - Paul Newland</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <div class="site-title">THE COLNESIDER</div>
+
+        <nav>
+            <ul>
+                <li><a class="active" href="index.html">Home</a></li>
+                <li><a href="workshop.html">Workshop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="travel.html">Travel</a></li>
+                <li><a href="guestbook.html">Guest Book</a></li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <h1 class="visually-hidden">Paul Newland – Personal website</h1>
+
+        <div class="hero-inner">
+            <img src="TMBTB.png"
+                 alt="The Man By The Bench logo"
+                 class="hero-logo">
+        </div>
+    </section>
+
+    <section class="content">
+
+        <div class="landing-intro">
+            <h1>Welcome</h1>
+
+            <p class="subtitle">
+                gentle downloader
+            </p>
+        </div>
+
+        <div class="intro-box">
+            <p>
+                You’ve landed on the website of me, Paul Newland — on purpose or by accident.
+                Either way, welcome to my small corner of the interwebs.
+            </p>
+
+            <p>
+                This site is where I keep a record of projects, workshop builds and the odd bit
+                of tinkering — with the added bonus of giving me an excuse to mess around with a
+                bit of coding too.
+            </p>
+
+            <p>
+                Have a poke around — check out the go-kart build, the Raleigh Nova bike rescue,
+                or whatever else catches your eye.
+            </p>
+
+            <p>
+                Feel free to say hello by signing the guest book.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<footer class="landing-bottom">
+
+    <div id="privacyText" class="privacy-text">
+        Nice to know 👍 This is a simple static website — no database, no backend systems and no visitor tracking.
+        Guest book messages are voluntary and handled via Formspree.
+    </div>
+
+    <div class="landing-meta">
+        <span>© Paul Newland 2026</span> ·
+        <button id="privacyLink" class="privacy-button" type="button">Privacy</button>
+    </div>
+
+    <p id="site-age" class="site-age"></p>
+
+</footer>
+
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const launchDate = new Date(2026, 1, 8); // 8 Feb 2026 (month is zero-based)
-    const siteAgeEl = document.getElementById("site-age");
+document.addEventListener("DOMContentLoaded", function () {
 
-    function updateSiteAge() {
-        const now = new Date();
+    const privacyLink = document.getElementById("privacyLink");
+    const privacyText = document.getElementById("privacyText");
 
-        let years = now.getFullYear() - launchDate.getFullYear();
-        let months = now.getMonth() - launchDate.getMonth();
-        let days = now.getDate() - launchDate.getDate();
-
-        if (days < 0) {
-            months--;
-            const previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-            days += previousMonth.getDate();
-        }
-
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-
-        const parts = [];
-
-        if (years > 0) {
-            parts.push(`${years} ${years === 1 ? "year" : "years"}`);
-        }
-
-        if (months > 0) {
-            parts.push(`${months} ${months === 1 ? "month" : "months"}`);
-        }
-
-        if (days > 0 || parts.length === 0) {
-            parts.push(`${days} ${days === 1 ? "day" : "days"}`);
-        }
-
-        siteAgeEl.textContent = `Cluttering up the web for: ${parts.join(", ")}`;
+    if (privacyLink && privacyText) {
+        privacyLink.addEventListener("click", function () {
+            privacyText.classList.toggle("show");
+        });
     }
 
-    updateSiteAge();
-    setInterval(updateSiteAge, 60 * 60 * 1000); // update every hour
+    const siteAgeEl = document.getElementById("site-age");
+
+    if (siteAgeEl) {
+        const launchDate = new Date(2026, 1, 8); // 8 February 2026
+
+        function updateSiteAge() {
+            const now = new Date();
+
+            let years = now.getFullYear() - launchDate.getFullYear();
+            let months = now.getMonth() - launchDate.getMonth();
+            let days = now.getDate() - launchDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const parts = [];
+
+            if (years > 0) {
+                parts.push(years + " " + (years === 1 ? "year" : "years"));
+            }
+
+            if (months > 0) {
+                parts.push(months + " " + (months === 1 ? "month" : "months"));
+            }
+
+            if (days > 0 || parts.length === 0) {
+                parts.push(days + " " + (days === 1 ? "day" : "days"));
+            }
+
+            siteAgeEl.textContent = "Cluttering up the web for: " + parts.join(", ");
+        }
+
+        updateSiteAge();
+        setInterval(updateSiteAge, 60 * 60 * 1000);
+    }
+
 });
 </script>
+
+</body>
+</html>
