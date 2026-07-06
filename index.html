@@ -78,7 +78,7 @@
 
 <footer class="landing-bottom">
 
-    <div id="privacyText" class="privacy-text">
+    <div id="privacyText" class="privacy-text" style="display: none;">
         Nice to know 👍 This is a simple static website — no database, no backend systems and no visitor tracking.
         Guest book messages are voluntary and handled via Formspree.
     </div>
@@ -100,7 +100,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (privacyLink && privacyText) {
         privacyLink.addEventListener("click", function () {
-            privacyText.classList.toggle("show");
+            // Directly toggle display styles instead of using CSS classes
+            if (privacyText.style.display === "none") {
+                privacyText.style.display = "block";
+            } else {
+                privacyText.style.display = "none";
+            }
         });
     }
 
@@ -149,6 +154,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
-</body>
-</html>
