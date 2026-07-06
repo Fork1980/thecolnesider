@@ -1142,6 +1142,13 @@ main {
     color: #666;
     text-align: center;
 }
+.privacy-text.show {
+    display: block;
+}
+
+.privacy-button {
+    background: none;
+    ...
 
 .privacy-button {
     background: none;
