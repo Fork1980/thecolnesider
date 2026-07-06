@@ -67,37 +67,7 @@
                 or whatever else catches your eye....Feel free to say hello by signing the guest book.
             </p>
 
-   <div class="landing-intro">
-          <div id="colnesider-tide-data" style="width: 100%; text-align: center; margin: 25px 0; font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; color: #333; line-height: 1.6;">
-    🌊 Loading live River Colne tides...
-</div>
-
-<script>
-async function getColneTides() {
-    const display = document.getElementById('colnesider-tide-data');
-    try {
-        // Fetch data for the Colne Estuary (lat n long)
-        const response = await fetch('https://api.open-meteo.com/v1/marine?latitude=51.8122&longitude=1.0202&daily=wave_height_max&timezone=Europe%2FLondon');
-        if (!response.ok) throw new Error();
-        
-        // Formats real-time calculated intervals for Brightlingsea/Colchester
-        const now = new Date();
-        const hours = now.getHours();
-        
-        // Simulates high/low cycles based on current semi-diurnal coastal shifts
-        let status = (hours % 12 < 6) ? "Falling 🔽" : "Rising 🔼";
-        let nextHigh = new Date(now.setHours(now.getHours() + (12 - (hours % 12)), 15)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        let nextLow = new Date(now.setHours(now.getHours() - 6, 45)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-
-        display.innerHTML = `🌊 River Colne Tides — Status: <span style="color: #0066cc;">${status}</span> | Next Low: ${nextLow} | Next High: ${nextHigh}`;
-    } catch (e) {
-        // fallback in case the local area data delays loading
-        display.innerHTML = `🌊 River Colne Tides — Status: <span style="color: #0066cc;">Rising 🔼</span> | Next Low: 10:42 | Next High: 16:55`;
-    }
-}
-getColneTides();
-</script>
-                
+   <div class="landing-intro">          
           
         </div>
 
