@@ -85,7 +85,7 @@
 
     <div class="landing-meta">
         <span>© Paul Newland 2026</span> ·
-        <button id="privacyLink" class="privacy-button" type="button">Privacy</button>
+        <a id="privacyLink" href="#">Privacy</a>
     </div>
 
     <p id="site-age" class="site-age"></p>
@@ -99,8 +99,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const privacyText = document.getElementById("privacyText");
 
     if (privacyLink && privacyText) {
-        privacyLink.addEventListener("click", function () {
-            // Directly toggle display styles instead of using CSS classes
+        // 'e' stands for the click event
+        privacyLink.addEventListener("click", function (e) {
+            e.preventDefault(); // This stops the '#' from jumping the page to the top
+            
             if (privacyText.style.display === "none") {
                 privacyText.style.display = "block";
             } else {
