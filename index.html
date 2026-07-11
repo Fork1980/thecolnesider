@@ -7,24 +7,39 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        /* =====================================================
+        /* 
            Newlands Site Age & Tide Tracker Sync
-           ===================================================== */
+           */
         .site-age {
             margin-top: 0.75rem;
-            font-size: 0.85rem;      /* Soft, scaled font-size matching privacy metadata */
-            color: #777;             /* Clean gray hue */
-            opacity: 0.7;            /* Subdued layout weight */
+            font-size: 0.85rem;      
+            color: #777;             
+            opacity: 0.7;            
             text-align: center;
         }
 
         .colnesider-footer-tide {
-            margin-top: 1rem;        /* Gives it some breathing room under the intro paragraphs */
+            margin-top: 1rem;        
             margin-bottom: 1.5rem;
-            font-size: 0.85rem;      /* Matches site-age text sizing perfectly */
-            color: #777;             /* Same clean gray hue */
-            opacity: 0.7;            /* Same matching design opacity */
+            font-size: 0.85rem;      
+            color: #777;             
+            opacity: 0.7;            
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;                /* Space ma wave icon slightly away from the text */
+        }
+
+        .tide-wave-icon {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: #777;            
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -57,7 +72,7 @@
 
     <section class="content">
 
-        <div> <!-- Fixed broken structure here -->
+        <div> 
             <h1>Welcome</h1>
             <p class="subtitle">gentle downloader</p>
         </div>
@@ -81,8 +96,9 @@
         </div>
 
         <div class="landing-intro">          
-            <!-- Clean, low-contrast live tide tracker placed right under introductory text -->
+            <!-- The tracker now includes the inline vector wave code inside the display container -->
             <div id="colnesider-tide-data" class="colnesider-footer-tide">
+                <svg class="tide-wave-icon" viewBox="0 0 24 24"><path d="M2 12c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0M2 17c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0"/></svg>
                 River Colne Tides — Loading status...
             </div>
         </div>
@@ -126,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- Site Age Logic ---
     const siteAgeEl = document.getElementById("site-age");
     if (siteAgeEl) {
-        const launchDate = new Date(2026, 1, 8); // 8 February 2026
+        const launchDate = new Date(2026, 1, 8); 
 
         function updateSiteAge() {
             const now = new Date();
@@ -155,10 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(updateSiteAge, 60 * 60 * 1000);
     }
 
-    // --- River Colne Tide Tracker Logic ---
+    // --- River Colne Tide Tracker Logic with Vector Graphics ---
     async function getColneTides() {
         const display = document.getElementById('colnesider-tide-data');
         if (!display) return;
+        
+        // Inline raw code block representing our clean wave structure
+        const waveSvg = `<svg class="tide-wave-icon" viewBox="0 0 24 24"><path d="M2 12c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0M2 17c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0"/></svg>`;
         
         try {
             const response = await fetch('https://marine-api.open-meteo.com/v1/marine?latitude=51.8122&longitude=1.0202&daily=wave_height_max&timezone=Europe%2FLondon');
@@ -167,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const now = new Date();
             const hours = now.getHours();
             
-            // Formats real-time semi-diurnal intervals for the estuary
             let status = (hours % 12 < 6) ? "Falling" : "Rising";
             
             let nextHighTime = new Date(new Date().setHours(now.getHours() + (12 - (hours % 12)), 15));
@@ -176,10 +194,9 @@ document.addEventListener("DOMContentLoaded", function () {
             let nextHigh = nextHighTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             let nextLow = nextLowTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
-            display.innerHTML = `River Colne Tides — Status: ${status} | Next Low: ${nextLow} | Next High: ${nextHigh}`;
+            display.innerHTML = `${waveSvg} River Colne Tides — Status: ${status} | Next Low: ${nextLow} | Next High: ${nextHigh}`;
         } catch (e) {
-            // Soft fallback values if connection drops out
-            display.innerHTML = `River Colne Tides — Status: Rising | Next Low: 03:17 | Next High: 09:37`;
+            display.innerHTML = `${waveSvg} River Colne Tides — Status: Rising | Next Low: 03:17 | Next High: 09:37`;
         }
     }
     
