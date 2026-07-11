@@ -1139,3 +1139,22 @@ main {
     text-decoration: underline;
     cursor: pointer;
 }
+/* =====================================================
+   Newlands Site Age & Tide Tracker Sync
+   ===================================================== */
+.site-age {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;      /* Soft, scaled font-size matching privacy metadata */
+    color: #777;             /* Clean gray hue */
+    opacity: 0.7;            /* Subdued layout weight */
+    text-align: center;
+}
+
+.colnesider-footer-tide {
+    margin-top: 1rem;        /* Gives it some breathing room under the intro paragraphs */
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;      /* Matches site-age text sizing perfectly */
+    color: #777;             /* Same clean gray hue */
+    opacity: 0.7;            /* Same matching design opacity */
+    text-align: center;
+}
