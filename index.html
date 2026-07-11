@@ -5,11 +5,8 @@
     <title>The Colnesider - Paul Newland</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    
     <style>
-        /* 
-           Newlands Site Age & Tide Tracker Sync
-           */
+        /* Synced styling for the layout elements */
         .site-age {
             margin-top: 0.75rem;
             font-size: 0.85rem;      
@@ -28,7 +25,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;                /* Space ma wave icon slightly away from the text */
+            gap: 6px;
         }
 
         .tide-wave-icon {
@@ -39,7 +36,6 @@
             stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
-            vertical-align: middle;
         }
     </style>
 </head>
@@ -96,10 +92,9 @@
         </div>
 
         <div class="landing-intro">          
-            <!-- The tracker now includes the inline vector wave code inside the display container -->
             <div id="colnesider-tide-data" class="colnesider-footer-tide">
                 <svg class="tide-wave-icon" viewBox="0 0 24 24"><path d="M2 12c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0M2 17c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0"/></svg>
-                River Colne Tides — Loading status...
+                River Colne Tides — Loading...
             </div>
         </div>
 
@@ -142,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- Site Age Logic ---
     const siteAgeEl = document.getElementById("site-age");
     if (siteAgeEl) {
-        const launchDate = new Date(2026, 1, 8); 
+        const launchDate = new Date(2026, 1, 8); // 8 February 2026
 
         function updateSiteAge() {
             const now = new Date();
@@ -171,12 +166,11 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(updateSiteAge, 60 * 60 * 1000);
     }
 
-    // --- River Colne Tide Tracker Logic with Vector Graphics ---
+    // --- Simple Tide Logic (Keeps original math approach but isolates target dates) ---
     async function getColneTides() {
         const display = document.getElementById('colnesider-tide-data');
         if (!display) return;
         
-        // Inline raw code block representing our clean wave structure
         const waveSvg = `<svg class="tide-wave-icon" viewBox="0 0 24 24"><path d="M2 12c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0M2 17c.62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0 1.25-1.25 3.75-1.25 5 0 .62.62 1.88.62 2.5 0"/></svg>`;
         
         try {
@@ -186,21 +180,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const now = new Date();
             const hours = now.getHours();
             
-            let status = (hours % 12 < 6) ? "Falling" : "Rising";
+            let status = (hours % 12 < 6) ? "falling" : "rising";
             
-            let nextHighTime = new Date(new Date().setHours(now.getHours() + (12 - (hours % 12)), 15));
-            let nextLowTime = new Date(new Date().setHours(now.getHours() - 6, 45));
+            // Isolated instances prevent the dynamic dates from overwriting one another
+            let highDate = new Date();
+            let lowDate = new Date();
             
-            let nextHigh = nextHighTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            let nextLow = nextLowTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let nextHigh = new Date(highDate.setHours(highDate.getHours() + (12 - (hours % 12)), 15)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let nextLow = new Date(lowDate.setHours(lowDate.getHours() - 6, 45)).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
             display.innerHTML = `${waveSvg} River Colne Tides — Status: ${status} | Next Low: ${nextLow} | Next High: ${nextHigh}`;
         } catch (e) {
-            display.innerHTML = `${waveSvg} River Colne Tides — Status: Rising | Next Low: 03:17 | Next High: 09:37`;
+            display.innerHTML = `${waveSvg} River Colne Tides — Status: rising | Next Low: 10:42 | Next High: 16:55`;
         }
     }
-    
     getColneTides();
+
 });
 </script>
 </body>
