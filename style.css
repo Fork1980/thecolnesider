@@ -93,11 +93,12 @@ main.landing > * {
    ===================================================== */
 
 .hero-logo {
- padding-top: 0.5rem;    
-max-height: 200px;              width: auto;
+    padding-top: 0.5rem;
+    max-height: 200px;
+    width: auto;
     height: auto;
     display: block;
-    margin: 0 auto 0.25rem;     
+    margin: 0 auto 0.25rem;
 }
 
 
@@ -227,14 +228,6 @@ details.intro-box > summary::-webkit-details-marker {
     display: none;
 }
 
-details.intro-box > summary {
-    cursor: pointer;
-    font-size: 1.05rem;
-    padding: 0.5rem 0;
-    list-style: none;
-    position: relative;
-}
-
 /* Newlands Arrow */
 details.intro-box > summary::after {
     content: "▸";
@@ -252,12 +245,6 @@ details.intro-box > summary::after {
 /* Rotated state */
 details.intro-box[open] > summary::after {
     transform: translateY(-50%) rotate(90deg);
-}
-
-}
-
-details[open] > summary::after {
-    transform: rotate(90deg);
 }
 
 details.intro-box > summary:hover {
@@ -292,10 +279,7 @@ a:hover {
     overflow: hidden; /* clears the float */
 }
 /* =====================================================
-   Image grids
-   ===================================================== */
-/* =====================================================
-   Image grids
+   IMAGE GRIDS
    ===================================================== */
 
 .photo-grid-2x2 {
@@ -356,28 +340,7 @@ a:hover {
     text-align: center;
 }
 /* =====================================================
-   Single image with caption + paragraph
-   ===================================================== */
-
-.photo-single {
-    margin: 2rem 0;
-}
-
-.photo-single figure {
-    margin: 0;
-    overflow: hidden; /* ensures rounded corners clip */
-}
-
-.photo-single img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    display: block;
-    border-radius: 12px;
-}
-
-/* =====================================================
-   Single image (Raleigh Nova detail)
+   SINGLE IMAGE WITH CAPTION + PARAGRAPH
    ===================================================== */
 
 .photo-single {
@@ -414,6 +377,7 @@ a:hover {
     text-justify: inter-word;
     hyphens: auto;
 }
+
 .image-pair {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -481,6 +445,7 @@ a:hover {
         margin-right: auto;
     }
 }
+
 /* Landing page intro width control */
 .landing-intro {
     max-width: 65ch;
@@ -665,6 +630,7 @@ a:hover {
 .workshop-page .project-gallery img {
     margin: 0;
 }
+
 /* =====================================================
    WILLIE JOE / VEG PATCH WIDGET
    ===================================================== */
@@ -878,6 +844,7 @@ a:hover {
     color: #555;
     font-style: italic;
 }
+
 /* =========================
    Diary solution for phones
    ========================= */
@@ -925,6 +892,7 @@ a:hover {
     .diary-table td:nth-child(6)::before { content: "Notes: "; }
 
 }
+
 /* =====================================================
    PAGE LAYOUT FIX (Sticky Footer)
    ===================================================== */
@@ -970,16 +938,6 @@ main {
 .landing-footer a:hover {
     text-decoration: underline;
     opacity: 1;
-}
-/* Privacy text toggle */
-
-.privacy-text {
-    display: none;
-    margin-top: 0.5rem;
-    font-size: 0.7rem;
-    color: #777;
-    text-align: center;
-    line-height: 1.4;
 }
 /* =====================================================
    BLOG PAGE
@@ -1122,51 +1080,62 @@ main {
     }
 
 }
+
+/* =====================================================
+   LANDING PAGE FOOTER
+   ===================================================== */
+
 .landing-bottom {
     max-width: 900px;
     margin: 2rem auto 1.5rem;
     padding: 0 1rem;
     text-align: center;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.85rem;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #777;
 }
 
-.landing-meta {
-    font-size: 0.85rem;
-    color: #777;
+.landing-meta,
+.landing-meta span,
+.landing-meta a,
+.site-age,
+.privacy-text {
+    font: inherit;
+    color: inherit;
+}
+
+.landing-meta a {
+    text-decoration: underline;
+}
+
+.landing-meta a:hover {
+    opacity: 0.8;
+}
+
+.site-age {
+    margin: 0.75rem 0 0;
+    text-align: center;
 }
 
 .privacy-text {
     display: none;
     margin: 0 0 0.75rem;
-    font-size: 0.85rem;
-    line-height: 1.5;
-    color: #666;
     text-align: center;
 }
+
 .privacy-text.show {
     display: block;
 }
 
 .privacy-button {
-    background: none;
-    ...
-
-.privacy-button {
-    background: none;
-    border: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
     font: inherit;
     color: inherit;
     text-decoration: underline;
     cursor: pointer;
-}
-/* =====================================================
-   Newlands site age
-   ===================================================== */
-.site-age {
-    margin-top: 0.75rem;
-    font: inherit;     
-    color: inherit;             
-    opacity: 0.7;            
-    text-align: center;
 }
