@@ -4,18 +4,70 @@
     <meta charset="UTF-8">
     <title>The Colnesider - Paul Newland</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS Extensions for the Open-Meteo Marine Dashboard */
+        .tide-box {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fafafa;
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
+            font-family: sans-serif;
+        }
+        .tide-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.15rem;
+            color: #333;
+            letter-spacing: 0.05em;
+        }
+        .tide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        .tide-card {
+            background: #ffffff;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tide-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: #4a90e2;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .tide-info label {
+            display: block;
+            font-size: 0.75rem;
+            color: #888;
+            text-transform: uppercase;
+        }
+        .tide-info span {
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: #222;
+        }
+        .tide-error-link {
+            color: #4a90e2;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="site-header">
     <div class="header-inner">
-
         <div class="site-title">THE COLNESIDER</div>
-
         <nav>
             <ul>
                 <li><a class="active" href="index.html">Home</a></li>
@@ -25,7 +77,6 @@
                 <li><a href="guestbook.html">Guest Book</a></li>
             </ul>
         </nav>
-
     </div>
 </header>
 
@@ -33,21 +84,16 @@
 
     <section class="hero">
         <h1 class="visually-hidden">Paul Newland – Personal website</h1>
-
         <div class="hero-inner">
-            <img src="TMBTB.png"
-                 alt="The Man By The Bench logo"
-                 class="hero-logo">
+            <img src="TMBTB.png" alt="The Man By The Bench logo" class="hero-logo">
         </div>
     </section>
 
     <section class="content">
 
+        <div class="welcome-box">
             <h1>Welcome</h1>
-
-            <p class="subtitle">
-                gentle downloader
-            </p>
+            <p class="subtitle">gentle downloader</p>
         </div>
 
         <div class="intro-box">
@@ -66,9 +112,17 @@
                 Have a poke around — check out the go-kart build, the Raleigh Nova bike rescue,
                 or whatever else catches your eye....Feel free to say hello by signing the guest book.
             </p>
+        </div>
 
-   <div class="landing-intro">          
-          
+        <!-- Tide / Marine Conditions Display Box -->
+        <div class="tide-box">
+            <h3>Brightlingsea Marine Conditions</h3>
+            <div id="tide-data">
+                <p style="font-size:0.9rem; color:#666;">Reading open marine telemetry data...</p>
+            </div>
+        </div>
+
+        <div class="landing-intro">          
         </div>
 
     </section>
@@ -76,7 +130,6 @@
 </main>
 
 <footer class="landing-bottom">
-
     <div id="privacyText" class="privacy-text" style="display: none;">
         Nice to know 👍 This is a simple static website — no database, no backend systems and no visitor tracking.
         Guest book messages are voluntary and handled via Formspree.
@@ -88,20 +141,18 @@
     </div>
 
     <p id="site-age" class="site-age"></p>
-
 </footer>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
+    // --- Privacy Link Toggle Logic ---
     const privacyLink = document.getElementById("privacyLink");
     const privacyText = document.getElementById("privacyText");
 
     if (privacyLink && privacyText) {
-        // 'e' stands for the click event
         privacyLink.addEventListener("click", function (e) {
-            e.preventDefault(); // This stops the '#' from jumping the page to the top
-            
+            e.preventDefault(); 
             if (privacyText.style.display === "none") {
                 privacyText.style.display = "block";
             } else {
@@ -110,14 +161,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // --- Dynamic Counter Site Age Logic ---
     const siteAgeEl = document.getElementById("site-age");
-
     if (siteAgeEl) {
         const launchDate = new Date(2026, 1, 8); // 8 February 2026
 
         function updateSiteAge() {
             const now = new Date();
-
             let years = now.getFullYear() - launchDate.getFullYear();
             let months = now.getMonth() - launchDate.getMonth();
             let days = now.getDate() - launchDate.getDate();
@@ -126,25 +176,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 months--;
                 days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
             }
-
             if (months < 0) {
                 years--;
                 months += 12;
             }
 
             const parts = [];
-
-            if (years > 0) {
-                parts.push(years + " " + (years === 1 ? "year" : "years"));
-            }
-
-            if (months > 0) {
-                parts.push(months + " " + (months === 1 ? "month" : "months"));
-            }
-
-            if (days > 0 || parts.length === 0) {
-                parts.push(days + " " + (days === 1 ? "day" : "days"));
-            }
+            if (years > 0) parts.push(years + " " + (years === 1 ? "year" : "years"));
+            if (months > 0) parts.push(months + " " + (months === 1 ? "month" : "months"));
+            if (days > 0 || parts.length === 0) parts.push(days + " " + (days === 1 ? "day" : "days"));
 
             siteAgeEl.textContent = "Cluttering up the web for: " + parts.join(", ");
         }
@@ -153,5 +193,64 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(updateSiteAge, 60 * 60 * 1000);
     }
 
+    // --- Open-Meteo Marine Data Live Fetch ---
+    const tideDataEl = document.getElementById("tide-data");
+    if (tideDataEl) {
+        // Precise coordinates for Brightlingsea Waterfront
+        const lat = "51.81";
+        const lon = "1.02"; 
+        const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_period&timezone=auto`;
+
+        fetch(url)
+        .then(response => {
+            if (!response.ok) throw new Error("API Connection Error");
+            return response.json();
+        })
+        .then(payload => {
+            if (payload && payload.current) {
+                const waveHeight = payload.current.wave_height;
+                const wavePeriod = payload.current.wave_period;
+
+                tideDataEl.innerHTML = `
+                    <div class="tide-grid">
+                        <div class="tide-card">
+                            <div class="tide-icon">
+                                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5l-5-5-5 5M7 19l5 5 5-5"/></svg>
+                            </div>
+                            <div class="tide-info">
+                                <label>Sea Displacement</label>
+                                <span>${waveHeight.toFixed(2)}m</span>
+                            </div>
+                        </div>
+                        <div class="tide-card">
+                            <div class="tide-icon">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            </div>
+                            <div class="tide-info">
+                                <label>Wave Period</label>
+                                <span>${wavePeriod}s</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #888; margin-top: 12px; margin-bottom: 0;">
+                        Open data stream anchored to Lat: 51.81, Lon: 1.02. Updated hourly.
+                    </p>
+                `;
+            } else {
+                throw new Error("Invalid payload format");
+            }
+        })
+        .catch(err => {
+            console.error("Open-Meteo API failure: ", err);
+            tideDataEl.innerHTML = `
+                <span style="font-size:0.9rem; color:#777;">Live data paused. </span>
+                <a class="tide-error-link" href="https://www.tidetimes.org.uk/brightlingsea-tide-times" target="_blank" style="font-size:0.9rem;">
+                    View Brightlingsea Tide Times here
+                </a>.
+            `;
+        });
+    }
 });
 </script>
+</body>
+</html>
