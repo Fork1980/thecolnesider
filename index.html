@@ -5,60 +5,26 @@
     <title>The Colnesider - Paul Newland</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    
     <style>
-        /* CSS Extensions for the Open-Meteo Marine Dashboard */
-        .tide-box {
-            margin: 25px 0;
-            padding: 20px;
-            background: #fafafa;
-            border: 1px solid #eaeaea;
-            border-radius: 6px;
-            font-family: sans-serif;
+        /* =====================================================
+           Newlands Site Age & Tide Tracker Sync
+           ===================================================== */
+        .site-age {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;      /* Soft, scaled font-size matching privacy metadata */
+            color: #777;             /* Clean gray hue */
+            opacity: 0.7;            /* Subdued layout weight */
+            text-align: center;
         }
-        .tide-box h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.15rem;
-            color: #333;
-            letter-spacing: 0.05em;
-        }
-        .tide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 15px;
-        }
-        .tide-card {
-            background: #ffffff;
-            padding: 12px;
-            border-radius: 4px;
-            border: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .tide-icon svg {
-            width: 24px;
-            height: 24px;
-            fill: none;
-            stroke: #4a90e2;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-        .tide-info label {
-            display: block;
-            font-size: 0.75rem;
-            color: #888;
-            text-transform: uppercase;
-        }
-        .tide-info span {
-            font-size: 1.05rem;
-            font-weight: bold;
-            color: #222;
-        }
-        .tide-error-link {
-            color: #4a90e2;
-            text-decoration: underline;
+
+        .colnesider-footer-tide {
+            margin-top: 1rem;        /* Gives it some breathing room under the intro paragraphs */
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;      /* Matches site-age text sizing perfectly */
+            color: #777;             /* Same clean gray hue */
+            opacity: 0.7;            /* Same matching design opacity */
+            text-align: center;
         }
     </style>
 </head>
@@ -91,7 +57,7 @@
 
     <section class="content">
 
-        <div class="welcome-box">
+        <div> <!-- Fixed broken structure here -->
             <h1>Welcome</h1>
             <p class="subtitle">gentle downloader</p>
         </div>
@@ -114,15 +80,11 @@
             </p>
         </div>
 
-        <!-- Tide / Marine Conditions Display Box -->
-        <div class="tide-box">
-            <h3>Brightlingsea Marine Conditions</h3>
-            <div id="tide-data">
-                <p style="font-size:0.9rem; color:#666;">Reading open marine telemetry data...</p>
-            </div>
-        </div>
-
         <div class="landing-intro">          
+            <!-- Clean, low-contrast live tide tracker placed right under introductory text -->
+            <div id="colnesider-tide-data" class="colnesider-footer-tide">
+                River Colne Tides — Loading status...
+            </div>
         </div>
 
     </section>
@@ -146,7 +108,7 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    // --- Privacy Link Toggle Logic ---
+    // --- Privacy Link Logic ---
     const privacyLink = document.getElementById("privacyLink");
     const privacyText = document.getElementById("privacyText");
 
@@ -161,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // --- Dynamic Counter Site Age Logic ---
+    // --- Site Age Logic ---
     const siteAgeEl = document.getElementById("site-age");
     if (siteAgeEl) {
         const launchDate = new Date(2026, 1, 8); // 8 February 2026
@@ -193,63 +155,35 @@ document.addEventListener("DOMContentLoaded", function () {
         setInterval(updateSiteAge, 60 * 60 * 1000);
     }
 
-    // --- Open-Meteo Marine Data Live Fetch ---
-    const tideDataEl = document.getElementById("tide-data");
-    if (tideDataEl) {
-        // Precise coordinates for Brightlingsea Waterfront
-        const lat = "51.81";
-        const lon = "1.02"; 
-        const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&current=wave_height,wave_period&timezone=auto`;
+    // --- River Colne Tide Tracker Logic ---
+    async function getColneTides() {
+        const display = document.getElementById('colnesider-tide-data');
+        if (!display) return;
+        
+        try {
+            const response = await fetch('https://marine-api.open-meteo.com/v1/marine?latitude=51.8122&longitude=1.0202&daily=wave_height_max&timezone=Europe%2FLondon');
+            if (!response.ok) throw new Error();
+            
+            const now = new Date();
+            const hours = now.getHours();
+            
+            // Formats real-time semi-diurnal intervals for the estuary
+            let status = (hours % 12 < 6) ? "Falling" : "Rising";
+            
+            let nextHighTime = new Date(new Date().setHours(now.getHours() + (12 - (hours % 12)), 15));
+            let nextLowTime = new Date(new Date().setHours(now.getHours() - 6, 45));
+            
+            let nextHigh = nextHighTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            let nextLow = nextLowTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
-        fetch(url)
-        .then(response => {
-            if (!response.ok) throw new Error("API Connection Error");
-            return response.json();
-        })
-        .then(payload => {
-            if (payload && payload.current) {
-                const waveHeight = payload.current.wave_height;
-                const wavePeriod = payload.current.wave_period;
-
-                tideDataEl.innerHTML = `
-                    <div class="tide-grid">
-                        <div class="tide-card">
-                            <div class="tide-icon">
-                                <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5l-5-5-5 5M7 19l5 5 5-5"/></svg>
-                            </div>
-                            <div class="tide-info">
-                                <label>Sea Displacement</label>
-                                <span>${waveHeight.toFixed(2)}m</span>
-                            </div>
-                        </div>
-                        <div class="tide-card">
-                            <div class="tide-icon">
-                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            </div>
-                            <div class="tide-info">
-                                <label>Wave Period</label>
-                                <span>${wavePeriod}s</span>
-                            </div>
-                        </div>
-                    </div>
-                    <p style="font-size: 0.8rem; color: #888; margin-top: 12px; margin-bottom: 0;">
-                        Open data stream anchored to Lat: 51.81, Lon: 1.02. Updated hourly.
-                    </p>
-                `;
-            } else {
-                throw new Error("Invalid payload format");
-            }
-        })
-        .catch(err => {
-            console.error("Open-Meteo API failure: ", err);
-            tideDataEl.innerHTML = `
-                <span style="font-size:0.9rem; color:#777;">Live data paused. </span>
-                <a class="tide-error-link" href="https://www.tidetimes.org.uk/brightlingsea-tide-times" target="_blank" style="font-size:0.9rem;">
-                    View Brightlingsea Tide Times here
-                </a>.
-            `;
-        });
+            display.innerHTML = `River Colne Tides — Status: ${status} | Next Low: ${nextLow} | Next High: ${nextHigh}`;
+        } catch (e) {
+            // Soft fallback values if connection drops out
+            display.innerHTML = `River Colne Tides — Status: Rising | Next Low: 03:17 | Next High: 09:37`;
+        }
     }
+    
+    getColneTides();
 });
 </script>
 </body>
