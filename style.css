@@ -323,7 +323,7 @@ a:hover {
     margin: 0;
 }
 
-/* Same visual size as your 2x2 grid */
+/* Same visual size as 2x2 grid */
 .photo-grid-2x1 img {
     width: 100%;
     aspect-ratio: 4 / 3;
@@ -632,7 +632,7 @@ a:hover {
 }
 
 /* =====================================================
-   WILLIE JOE / VEG PATCH WIDGET
+   WILLIE JOE / WIDGET
    ===================================================== */
 
 /* Intro text above widget */
@@ -1003,7 +1003,7 @@ main {
 .post-entry h2 {
     margin: 0.1rem 0 0.5rem;
     line-height: 1.2;
-    text-align: left;
+    text-align: justify;
 }
 
 .post-entry p {
